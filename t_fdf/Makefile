@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/23 16:10:59 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/23 16:28:38 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ $(OBJS_DIR):
 $(addprefix $(OBJS_DIR), %.o): %.c
 	cc -c $(FLAGS) $^ -o $@
 
+libft:
+	@make -C $(LIBFT_DIR)
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 
 	@make -C $(LIBFT_DIR) clean
