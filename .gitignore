@@ -3,7 +3,7 @@
 *.o
 *.a
 # Ignored folders
-test*/
+#test*/
 obj*/
 #
 fdf

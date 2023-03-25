@@ -1,0 +1,15 @@
+#
+# %.o: %.c
+#	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+#
+# To link with the required internal macOS API:
+#
+# $(NAME): $(OBJ)
+# 	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+# -lmlx -framework OpenGL -framework AppKit
+
+# cc -L ../minilibx_macos -lmlx -framework OpenGL -framework AppKit
+
+ cc -L ../minilibx_macos/libmx -lmlx -framework OpenGL -framework AppKit main_macos.c 
+
+works on mac ----->  cc -I../minilibx_macos -Lmlx -lmlx -framework OpenGL -framework AppKit main_macos.c

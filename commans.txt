@@ -1,0 +1,22 @@
+############ Download files from url compress
+
+curl -L -o file_name.ext file@url.ext
+
+############ Download files from url unzip
+
+curl file@url.ext | tar -xz
+# curl https://projects.intra.42.fr/uploads/document/document/13503/minilibx_macos_sierra_20161017.tgz | tar -xz
+### working with valgrind
+
+valgrind --leak-check=full \
+--show-leak-kinds=all \
+--track-origins=yes \
+--verbose \
+--log-file=valgrind-out.txt \
+./push_swap 2 -2147483648
+
+valgrind --leak-check=full \
+--show-leak-kinds=all \
+--track-origins=yes \
+--verbose \
+./push_swap 2 -2147483648
