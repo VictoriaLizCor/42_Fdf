@@ -1,7 +1,7 @@
 ############ Download files from url compress
 
 curl -L -o file_name.ext file@url.ext
-
+unzip filename.zip
 ############ Download files from url unzip
 
 curl file@url.ext | tar -xz
