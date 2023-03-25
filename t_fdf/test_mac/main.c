@@ -3,6 +3,7 @@
 #include  <stdio.h>
 #include "../minilibx_macos/mlx.h"
 #include "../minilibx_macos/mlx_int.h"
+
 #define	WIN1_SX		242
 #define	WIN1_SY		242
 #define	IM1_SX		42
