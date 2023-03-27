@@ -1,0 +1,26 @@
+R 720 480
+N ./map/level2_bonus.cub
+NX ./img_bonus/nextlevel.xpm
+NO ./img_bonus/wall.xpm
+SO ./img_bonus/wall.xpm
+WE ./img_bonus/wall.xpm
+EA ./img_bonus/wall.xpm
+
+S_Y ./img_bonus/피츄.xpm
+S_R ./img_bonus/파이리.xpm
+S_G ./img_bonus/이상해씨.xpm
+S_B ./img_bonus/꼬부기.xpm
+S_H ./img_bonus/potion.xpm
+S_O ./img_bonus/오박사.xpm
+
+F ./img_bonus/floor.xpm
+C ./img_bonus/skybox.xpm
+
+111111111111111111111
+1B0000000000000000001
+111111111111000000001
+100000010001E00000002
+1G00010000000000010O1
+111101111111111001001
+1R0000000001H000010Y1
+111111111111111111111

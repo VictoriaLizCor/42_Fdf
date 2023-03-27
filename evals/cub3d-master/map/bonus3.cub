@@ -1,0 +1,26 @@
+R 480 240
+N FINISH
+NX ./img_bonus/nextlevel.xpm
+NO ./img/NO.xpm
+SO ./img/SO.xpm
+WE ./img/WE.xpm
+EA ./img/EA.xpm
+
+S_Y ./img_bonus/라이츄.xpm
+S_R ./img_bonus/리자몽.xpm
+S_G ./img_bonus/이상해꽃.xpm
+S_B ./img_bonus/거북왕.xpm
+S_H ./img_bonus/potion.xpm
+S_O ./img_bonus/오박사.xpm
+
+F ./img_bonus/floor.xpm
+C ./img_bonus/skybox.xpm
+
+111111111111111111111
+100000000000000H00001
+100000000000000B00001
+100000000000E00G000002
+100000000000000R00001
+100000000000000Y00001
+100000000000000O00001
+111111111111111111111
