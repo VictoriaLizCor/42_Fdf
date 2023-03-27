@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/23 16:16:54 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/27 13:27:47 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ SRC_LIBFT :=	ft_long_atoi.c				\
 				ft_printf_utils.c			\
 				ft_printf.c					\
 
-OBJS_LIBFT_DIR = obj_libft/
+OBJS_LIBFT_DIR = obj/
 OBJS_LIBFT = $(addprefix $(OBJS_LIBFT_DIR), $(SRC_LIBFT:.c=.o))
 
 # Make sure these aren't treated as files
@@ -68,14 +68,14 @@ all: $(OBJS_LIBFT_DIR) $(NAME)
 
 #creating *.o directory
 $(OBJS_LIBFT_DIR) : 
-	mkdir -p $@
-
+	@mkdir -p $@
+	@echo mkdir -p $(shell pwd | awk -F / '{print $$(NF-1)"/"$$(NF)}')/$(OBJS_LIBFT_DIR)
 #echoes : 
 #	echo $(addprefix $(OBJ_DIR), $(SRC_LIBFT:.c=.o))
 
 # Make the object files
 $(addprefix $(OBJS_LIBFT_DIR), %.o): %.c
-	cc -c $(FLAGS) $^ -o $@
+	@cc -c $(FLAGS) $^ -o $@
 
 # Make standard libft archive
 $(NAME): $(OBJS_LIBFT)
@@ -86,11 +86,11 @@ $(NAME): $(OBJS_LIBFT)
 # Clean intermediary files
 clean:
 	@rm -rf $(OBJS_LIBFT_DIR)
-	@echo rm -f $(shell pwd | awk -F / '{print $$(NF)"/"$$(NF)}')/$(OBJS_LIBFT_DIR)
+	@echo rm -f $(shell pwd | awk -F / '{print $$(NF-1)"/"$$(NF)}')/$(OBJS_LIBFT_DIR)
 # Clean all non-source files
 fclean: clean
 	@rm -f $(NAME)
-	@echo rm -f $(shell pwd | awk -F / '{print $$(NF)"/"$$(NF)}')/$(NAME)
+	@echo rm -f $(shell pwd | awk -F / '{print $$(NF-1)"/"$$(NF)}')/$(NAME)
  
 # Wipe all and make again
 re: fclean all
