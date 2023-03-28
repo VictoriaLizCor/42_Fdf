@@ -12,7 +12,7 @@
 
 NAME = cub3D
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS := -g3 -fsanitize=address
 ifneq ($(DEBUG),true)
@@ -170,13 +170,13 @@ $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
-	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) -c $< -o $@
-	@printf "$(LF)🚧 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)from $(FG_TEXT_PRIMARY)$<"
+	$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+#	@printf "$(LF)🚧 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)from $(FG_TEXT_PRIMARY)$<"
 
 $(NAME) : $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS)
-	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
-	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
-	@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
+#	@printf "$(LF)🚀 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$(NAME)'s Object files $(FG_TEXT)!"
+#	@printf "$(CRLF)📚 $(FG_TEXT)Create $(FG_TEXT_PRIMARY)cub3D$(FG_TEXT)!\n"
+	$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	@printf "$(LF)🎉 $(FG_TEXT)Successfully Created $(FG_TEXT_PRIMARY)$@ $(FG_TEXT)!\n$(NO_COLOR)"
 
 bonus : $(MLX_FILE) $(LIBFT_FILE) $(HEADERS) $(OBJS_BONUS)

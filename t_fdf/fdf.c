@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/27 17:13:22 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:13:51 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	main(void)
 	mlx_loop(mlx);
 	mlx_destroy_image(mlx, img.img);
 	mlx_destroy_window(mlx, mlx_win);
-	exit(0);
+	ft_printf("END\n");
+	return (0);
 }

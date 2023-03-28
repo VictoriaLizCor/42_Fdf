@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/27 17:31:49 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/28 10:58:34 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,31 +39,32 @@ BANNER_FDF = @echo $(GREEN) "$$IMG"
 
 
 NAME = fdf
-SRC =	main_macos.c \
-		utils.c
+SRC =	utils.c \
+		fdf.c
 OBJS_DIR = obj/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR = lib/libft/
 LIBFT = $(LIBFT_DIR)libft.a
+LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
+CINCLUDES += -I $(LIBFT_DIR)
 	
 ifeq ($(shell uname), Linux)
 	# do something Linux
-	MLX_DIR = lib/minilibx-linux
+	MLX_DIR = lib/minilibx_linux
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11 -lm
-		#MLX_FLAGS= -I../minilibx_macos -lmlx 
 endif
 ifeq ($(shell uname), Darwin)
 	# do something MacOS
 	MLX_DIR = lib/minilibx_macos/
 #	MLX_FLAGS = -framework OpenGL -framework AppKit
-	MLX_FLAGS = -I $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 	#MLX_FLAGS = -I../minilibx_macos -lmlx -framework OpenGL -framework AppKit
 endif
 
-MLX = $(MLX_DIR)/libmlx.a
-#CINCLUDES += -I $(MLX_INC_DIR)
+MLX = $(MLX_DIR)libmlx.a
+CINCLUDES += -I $(MLX_DIR)
 
 # $(NAME): $(OBJS)
 # 	cc $(FLAGS) $^ $(LIBFT) -o $@
@@ -74,8 +75,16 @@ MLX = $(MLX_DIR)/libmlx.a
 # $(addprefix $(OBJS_DIR), %.o): %.c
 # 	cc -c $(FLAGS) $^ -o $@
 
-
 all: $(OBJS_DIR) $(NAME)
+
+#@$(CC) $(CDEBUG) $(CFLAGS) $(CINCLUDES) $(OBJS) -o $@ $(LIBFT_FLAGS) $(MLX_FLAGS)
+	$(BANNER_FDF)
+
+$(OBJS_DIR): 
+	@mkdir -p $@
+
+$(addprefix $(OBJS_DIR), %.o): %.c | $(OBJ_DIR)
+	@cc -c $(CFLAGS) $(CINCLUDES) $< -o $@
 
 $(NAME): $(OBJS)
 	@echo $(RED)
@@ -83,19 +92,12 @@ $(NAME): $(OBJS)
 	@echo $(BLUE)
 	@make -C $(LIBFT_DIR)
 	@echo $(GREEN)
-	cc $(CFLAGS) $(MLX_FLAGS) $(LIBFT) $^ -o $@
-	$(BANNER_FDF)
+	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $(LIBFT) $(MLX) $^ -o $@
 
-$(OBJS_DIR): 
-	mkdir -p $@
-
-$(addprefix $(OBJS_DIR), %.o): %.c | $(OBJ_DIR)
-	cc -c $(CFLAGS) $^ -o $@
-
-libft:
-	@echo $(BLUE)
-	@make -C $(LIBFT_DIR) 
-	$(BANNER_FDF)
+# libft:
+# 	@echo $(BLUE)
+# 	@make -C $(LIBFT_DIR) 
+# 	$(BANNER_FDF)
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 
