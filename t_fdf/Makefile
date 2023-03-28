@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/28 10:58:34 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/28 11:01:24 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ $(NAME): $(OBJS)
 	@echo $(GREEN)
 	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $(LIBFT) $(MLX) $^ -o $@
 
-# libft:
+# libft: 
 # 	@echo $(BLUE)
 # 	@make -C $(LIBFT_DIR) 
 # 	$(BANNER_FDF)
