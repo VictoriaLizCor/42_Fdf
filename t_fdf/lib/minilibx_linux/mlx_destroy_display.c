@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_error.c                                      :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/29 21:10:00 by lilizarr         ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "fdf.h"
-#include <fdf.h>
-// #include "../include/fdf.h"
+#include "mlx_int.h"
 
-void	ft_error(char *msg)
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	ft_printf("\n %s \n\n", msg);
-	exit(EXIT_FAILURE);
+	XCloseDisplay(xvar->display);
 }

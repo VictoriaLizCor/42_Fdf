@@ -1,20 +1,23 @@
 NAME = fdf
+
 SRCS_DIR := src/
 SRCS =	src/fdf.c		\
 		src/utils.c		\
 		src/check_error.c
+
 CFLAGS = -Wall -Wextra -Werror
 CINCLUDES += -I include/
 HEADER = include/fdf.h
+
 OBJS_DIR = obj/
 OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 LIBFT_DIR = lib/libft/
-LIBFT = $(LIBFT_DIR)libft.a
+LIBFT = libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CINCLUDES += -I $(LIBFT_DIR)
 	
 ifeq ($(shell uname), Linux)
-	MLX_DIR = lib/minilibx_linux
+	MLX_DIR = lib/minilibx_linux/
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -lXext -lX11 -lm
 endif
 ifeq ($(shell uname), Darwin)
@@ -22,26 +25,31 @@ ifeq ($(shell uname), Darwin)
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 
-MLX = $(MLX_DIR)libmlx.a
+MLX = libmlx.a
 CINCLUDES += -I $(MLX_DIR)
 
-all: $(OBJS_DIR) $(NAME)
+all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
-$(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
-	@echo $(GREEN)
-	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $(OBJS) -o $@
-	$(BANNER_FDF)
-
-$(OBJS_DIR):
-	@mkdir -p $@
+$(LIBFT):
 	@echo $(RED)
 	@make -C $(MLX_DIR)
+
+$(MLX):
 	@echo $(BLUE)
 	@make -C $(LIBFT_DIR)
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)| $(OBJS_DIR)
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
 	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
+
+$(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
+	@echo $(GREEN)
+	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $< -o $@ 
+	$(BANNER_FDF)
+ #$(LIBFT) $(MLX)
+# $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX)
+$(OBJS_DIR):
+	@mkdir -p $@
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 
