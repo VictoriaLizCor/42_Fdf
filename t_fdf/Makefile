@@ -13,6 +13,7 @@ OBJS_DIR = obj/
 OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 LIBFT_DIR = lib/libft/
 LIBFT = libft.a
+LIBFT_FILE = $(LIBFT_DIR)libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CINCLUDES += -I $(LIBFT_DIR)
 	
@@ -26,31 +27,36 @@ ifeq ($(shell uname), Darwin)
 endif
 
 MLX = libmlx.a
+MLX_FILE = $(MLX_DIR)libmlx.a
 CINCLUDES += -I $(MLX_DIR)
 
-all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
+all: $(OBJS_DIR) $(NAME)
 
-$(LIBFT):
-	@echo $(RED)
-	@make -C $(MLX_DIR)
-
-$(MLX):
-	@echo $(BLUE)
-	@make -C $(LIBFT_DIR)
-
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
+$(NAME): $(MLX_FILE) $(LIBFT_FILE) $(OBJS) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
-
-$(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
-	@echo $(GREEN)
-	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $< -o $@ 
+	gcc $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $< -o $@ 
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
 
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
+	@echo $(GREEN)
+	gcc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
+
 $(OBJS_DIR):
 	@mkdir -p $@
+
+$(LIBFT): $(LIBFT_FILE)
+
+$(MLX): $(MLX_FILE)
+
+$(MLX_FILE):
+	@echo $(RED)
+	@make --no-print-directory -C $(MLX_DIR)
+
+$(LIBFT_FILE):
+	@echo $(BLUE)
+	@make -C $(LIBFT_DIR)
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 
