@@ -48,6 +48,7 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX)
+
 $(OBJS_DIR):
 	@mkdir -p $@
 
