@@ -12,8 +12,8 @@ HEADER = include/fdf.h
 OBJS_DIR = obj/
 OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 LIBFT_DIR = lib/libft/
-LIBFT = libft.a
-LIBFT_FILE = $(LIBFT_DIR)libft.a
+LIBFT =  $(LIBFT_DIR)libft.a
+# LIBFT_FILE = $(LIBFT_DIR)libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CINCLUDES += -I $(LIBFT_DIR)
 	
@@ -26,35 +26,32 @@ ifeq ($(shell uname), Darwin)
 	MLX_FLAGS = -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 
-MLX = libmlx.a
-MLX_FILE = $(MLX_DIR)libmlx.a
+MLX = $(MLX_DIR)libmlx.a
+# MLX_FILE = $(MLX_DIR)libmlx.a
 CINCLUDES += -I $(MLX_DIR)
 
 all: $(OBJS_DIR) $(NAME)
 
-$(NAME): $(MLX_FILE) $(LIBFT_FILE) $(OBJS) | $(OBJS_DIR)
+$(NAME): $(MLX) $(LIBFT) $(OBJS) $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	gcc $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $< -o $@ 
+	cc $(CFLAGS) $(CINCLUDES) $< -o $@ 
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
+# $(MLX_FLAGS) $(LIBFT_FLAGS)
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	gcc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
+	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
 
 $(OBJS_DIR):
 	@mkdir -p $@
 
-$(LIBFT): $(LIBFT_FILE)
-
-$(MLX): $(MLX_FILE)
-
-$(MLX_FILE):
+$(MLX):
 	@echo $(RED)
 	@make --no-print-directory -C $(MLX_DIR)
 
-$(LIBFT_FILE):
+$(LIBFT):
 	@echo $(BLUE)
 	@make -C $(LIBFT_DIR)
 
