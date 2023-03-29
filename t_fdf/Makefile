@@ -1,16 +1,13 @@
 NAME = fdf
-SRCS_DIR := src
-# SRC =	fdf.c	\
-# 		utils.c
-# SRCS = $(wildcard $(SRCS_DIR)/*.c)
-SRCS =	src/utils.c	\
-		src/fdf.c
+SRCS_DIR := src/
+SRCS =	src/utils.c		\
+		src/fdf.c		\
+		check_error.c
 CFLAGS = -Wall -Wextra -Werror
 CINCLUDES += -I include/
 HEADER = include/fdf.h
-OBJS_DIR = obj
-# OBJS := $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
-OBJS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS_DIR = obj/
+OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 LIBFT_DIR = lib/libft/
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
@@ -39,9 +36,8 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $(OBJS) -o $@
 	$(BANNER_FDF)
 
-# $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
-# $(OBJS): $(SRCS) | $(OBJS_DIR)
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)| $(OBJS_DIR)
+# $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)| $(OBJS_DIR)
+ $(addprefix $(OBJS_DIR), %.o) : $(SRCS_DIR)%.c | $(OBJS_DIR)
 	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
 
 $(OBJS_DIR):
@@ -111,3 +107,9 @@ BANNER_FDF = @echo $(GREEN) "$$IMG"
 #$(addprefix $(OBJS_DIR), %.o) : $(SRCS)
 #$(OBJS) : $(addprefix $(SRCS_DIR), $(SRCS))
 #$(addprefix $(OBJS_DIR), %.o)
+# $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+# $(OBJS): $(SRCS) | $(OBJS_DIR)
+# SRC =	fdf.c	\
+# 		utils.c
+# SRCS = $(wildcard $(SRCS_DIR)/*.c)
+# OBJS := $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
