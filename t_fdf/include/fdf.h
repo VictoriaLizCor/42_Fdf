@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/28 14:33:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:12:00 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FDF_H
 
 #include "libft.h"
-#include "mlx.h"
+# include "mlx.h"
+// # include "fdf.h"
 // # ifdef __APPLE__
 // #  include "lib/minilibx_macos/mlx.h"
 // # else
@@ -38,5 +39,5 @@ typedef struct	s_data {
 }				t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-// int			main(int argc, char **argv);
+// int		main(int argc, char **argv);
 #endif
