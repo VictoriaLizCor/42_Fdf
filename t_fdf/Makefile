@@ -5,7 +5,7 @@ SRCS =	src/fdf.c		\
 		src/utils.c		\
 		src/check_error.c
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 CINCLUDES += -I include/
 HEADER = include/fdf.h
 
@@ -34,7 +34,7 @@ all: $(OBJS_DIR) $(NAME)
 
 $(NAME): $(MLX) $(LIBFT) $(OBJS) $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc $(CFLAGS) $(CINCLUDES) $< -o $@ 
+	cc $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $< -o $@ 
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
