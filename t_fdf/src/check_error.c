@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/29 16:56:54 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:12:10 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_error(char *msg)
 {
-	ft_printf("\n %s \n", msg);
+	ft_printf("\n %s \n\n", msg);
 	exit(EXIT_FAILURE);
 }

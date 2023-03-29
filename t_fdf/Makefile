@@ -1,8 +1,8 @@
 NAME = fdf
 SRCS_DIR := src/
-SRCS =	src/utils.c		\
-		src/fdf.c		\
-		check_error.c
+SRCS =	src/fdf.c		\
+		src/utils.c		\
+		src/check_error.c
 CFLAGS = -Wall -Wextra -Werror
 CINCLUDES += -I include/
 HEADER = include/fdf.h
@@ -25,23 +25,23 @@ endif
 MLX = $(MLX_DIR)libmlx.a
 CINCLUDES += -I $(MLX_DIR)
 
-all: $(NAME)
+all: $(OBJS_DIR) $(NAME)
 
 $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
-	@echo $(RED)
-	@make -C $(MLX_DIR)
-	@echo $(BLUE)
-	@make -C $(LIBFT_DIR)
 	@echo $(GREEN)
 	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $(OBJS) -o $@
 	$(BANNER_FDF)
 
-# $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)| $(OBJS_DIR)
- $(addprefix $(OBJS_DIR), %.o) : $(SRCS_DIR)%.c | $(OBJS_DIR)
-	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
-
 $(OBJS_DIR):
-	@mkdir $@
+	@mkdir -p $@
+	@echo $(RED)
+	@make -C $(MLX_DIR)
+	@echo $(BLUE)
+	@make -C $(LIBFT_DIR)
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)| $(OBJS_DIR)
+	@echo $(GREEN)
+	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 
@@ -113,3 +113,5 @@ BANNER_FDF = @echo $(GREEN) "$$IMG"
 # 		utils.c
 # SRCS = $(wildcard $(SRCS_DIR)/*.c)
 # OBJS := $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+# $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)| $(OBJS_DIR)
+# $(addprefix $(OBJS_DIR), %.o) : $(SRCS_DIR)%.c | $(OBJS_DIR)

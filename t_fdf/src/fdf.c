@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/29 17:03:35 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:36:58 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,11 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_error("Usage : ./fdf <filename>");
+		ft_error("Error! Valid input usage: ./fdf <filename>");
 	}
 	else
 	{
 		ft_printf("%s\n", *argv);
-	}
-	if (argc == 1)
-	{
 		mlx = mlx_init();
 		mlx_win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HIGHT, "Hello world!");
 		img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HIGHT);
