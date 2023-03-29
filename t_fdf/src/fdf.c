@@ -6,12 +6,12 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/29 16:12:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:13:07 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-// #include <fdf.h>
+#include <fdf.h>
+// #include "fdf.h"
 // #include "../include/fdf.h"
 
 int	main(int ac, char **av)
