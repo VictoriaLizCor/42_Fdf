@@ -31,7 +31,7 @@ CINCLUDES += -I $(MLX_DIR)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) | $(OBJS_DIR)
+$(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 	@echo $(RED)
 	@make -C $(MLX_DIR)
 	@echo $(BLUE)
@@ -42,7 +42,7 @@ $(NAME): $(OBJS) | $(OBJS_DIR)
 
 # $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 # $(OBJS): $(SRCS) | $(OBJS_DIR)
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)| $(OBJS_DIR)
 	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@ 
 
 $(OBJS_DIR):
