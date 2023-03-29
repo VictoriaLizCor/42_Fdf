@@ -47,7 +47,7 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 	cc $(CFLAGS) $(CINCLUDES) $(LIBFT_FLAGS) $(MLX_FLAGS) $< -o $@ 
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
-# $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX)
+# $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
 
 $(OBJS_DIR):
 	@mkdir -p $@
