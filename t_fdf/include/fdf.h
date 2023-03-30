@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/29 16:57:57 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:17:17 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "libft.h"
 # include "mlx.h"
+#include <math.h>
 # include <stdarg.h>
-# include <stdarg.h>
+#include <fcntl.h>
 # include <unistd.h>
 // to be deleted
 # include <stdio.h>
@@ -48,9 +49,13 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		cols;
+	int		rows;
 }				t_data;
 
 /* check_error.c */
 void	ft_error(char *msg);
+void	check_integers(char **argv);
+/* utils.c */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 #endif
