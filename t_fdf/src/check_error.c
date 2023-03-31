@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/30 16:51:03 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:00:41 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	check_integers(char **argv)
 		if (ft_atoi(*argv) > INT_MAX || ft_atoi(*argv) < INT_MIN)
 			ft_error("iInvalid input");
 		copy = *(argv);
-		if (ft_strchr("+-", *copy) || ft_isdigit(*copy))
+		if (ft_strchr("+-", *copy))
 			copy++;
 		while (*copy && ft_isdigit(*copy))
 			copy++;
-		if (!ft_isdigit(*copy))
+		if (!ft_strchr("\n\0", *(copy)))
 		{
-			if (!*copy && !ft_strchr("+- ", *(copy - 1)))
-				argv++;
-			else
-				ft_error("+Invalid input");
+			ft_printf("%d |",(char)*copy);
+			ft_printf("%c \n",(char)*copy);
+			ft_error("+Invalid map input");
 		}
+		argv++;
 	}
 }

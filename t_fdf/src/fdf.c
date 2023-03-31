@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/30 16:49:36 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:21:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	map_data(char **matrix, int *cols)
 	while(*matrix)
 	{
 		(*cols)++;
-		ft_printf("%d | %s \t", *cols, *matrix);
+		// ft_printf("%d | %s \n", *cols, *matrix);
 		matrix++;
 	}
 }
@@ -40,25 +40,26 @@ void read_map(t_data *img, int fd)
 		img->rows++;
 		matrix = ft_split(line, ' ');
 		check_integers(matrix);
-		ft_printf("%d ",img->rows);
+		ft_printf("%d \n",img->rows);
 		map_data(matrix, &tmp_cols);
 		// if (tmp_cols != img->cols)
 		// 	ft_error("Invalid map");
 		img->cols = tmp_cols;
 
 	}
-	ft_printf("%d | %d\n", img->rows, img->cols);
+	ft_printf("\n%d | %d\n", img->rows, img->cols);
 	if (!img->cols || !img->rows)
 		ft_error("*Invalid input");
-	free(matrix);
+	free(line);
+	ft_strfree(matrix);
 }
 
 int	main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*mlx_win;
-	static	t_data	img;
-	int		fd;
+	void			*mlx;
+	void			*mlx_win;
+	static t_data	img;
+	int				fd;
 
 	if (argc != 2)
 	{

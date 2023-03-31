@@ -6,13 +6,24 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/30 16:51:24 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:19:09 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "fdf.h"
 // #include "../include/fdf.h"
 #include <fdf.h>
+
+void	ft_strfree(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split[i]);
+	free(split);
+}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
