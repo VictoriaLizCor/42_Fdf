@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/31 16:14:59 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:02:24 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef struct	s_data {
 /* check_error.c */
 void	ft_error(char *msg);
 void	check_integers(char **argv);
-void	ft_strfree(char **split);
+void	map_data(char **matrix, int *cols);
+void	ft_free(void **array);
 /* utils.c */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 #endif

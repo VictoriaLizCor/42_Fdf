@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/31 16:21:01 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:51:56 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 // #include "../include/fdf.h"
 // #include "fdf.h"
 
-void	map_data(char **matrix, int *cols)
-{
-	while(*matrix)
-	{
-		(*cols)++;
-		// ft_printf("%d | %s \n", *cols, *matrix);
-		matrix++;
-	}
-}
 
 void read_map(t_data *img, int fd)
 {
@@ -37,21 +28,21 @@ void read_map(t_data *img, int fd)
 		if (!line)
 			break;
 		// ft_printf("%s\n", line);
-		img->rows++;
 		matrix = ft_split(line, ' ');
+		img->rows++;
 		check_integers(matrix);
-		ft_printf("%d \n",img->rows);
+		ft_printf("*%d \n",img->rows);
 		map_data(matrix, &tmp_cols);
 		// if (tmp_cols != img->cols)
 		// 	ft_error("Invalid map");
 		img->cols = tmp_cols;
-
+		ft_free((void *)matrix);
+		free(line);
 	}
 	ft_printf("\n%d | %d\n", img->rows, img->cols);
-	if (!img->cols || !img->rows)
+	if (img->cols < 2 || img->rows < 2)
 		ft_error("*Invalid input");
 	free(line);
-	ft_strfree(matrix);
 }
 
 int	main(int argc, char **argv)

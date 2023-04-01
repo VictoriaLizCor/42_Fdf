@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/31 16:19:09 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:10:47 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 // #include "../include/fdf.h"
 #include <fdf.h>
 
-void	ft_strfree(char **split)
+void	ft_free(void **array)
 {
 	int	i;
 
 	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split[i]);
-	free(split);
+	while (*(array + i))
+	{
+		free(*(array + i));
+		i++;
+	}
+	free(array);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
