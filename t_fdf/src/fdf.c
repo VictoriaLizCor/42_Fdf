@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/01 15:51:56 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:50:09 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ void read_map(t_data *img, int fd)
 		matrix = ft_split(line, ' ');
 		img->rows++;
 		check_integers(matrix);
-		ft_printf("*%d \n",img->rows);
+		// ft_printf("*%d \n",img->rows);
 		map_data(matrix, &tmp_cols);
-		// if (tmp_cols != img->cols)
-		// 	ft_error("Invalid map");
+		if (tmp_cols != img->cols && img->cols)
+			ft_error("Invalid map");
 		img->cols = tmp_cols;
-		ft_free((void *)matrix);
-		free(line);
+		// ft_free((void *)matrix);
 	}
 	ft_printf("\n%d | %d\n", img->rows, img->cols);
 	if (img->cols < 2 || img->rows < 2)
