@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:32:51 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/03 17:45:21 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:18:47 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,6 @@ char		*ft_strjoin(char const *s1, char const *s2);
 ** from the string ’s’.
 ** The substring begins at index ’start’ and is of maximum size ’len’.
 */
-
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 /****** GET NEXT LINE *******/

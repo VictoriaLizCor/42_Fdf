@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/01 15:02:24 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:17:11 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 // to be deleted
 # include <stdio.h>
+# include <limits.h>
 // # include "fdf.h"
 // # ifdef __APPLE__
 // #  include "lib/minilibx_macos/mlx.h"
@@ -55,9 +56,9 @@ typedef struct	s_data {
 
 /* check_error.c */
 void	ft_error(char *msg);
-void	check_integers(char **argv);
-void	map_data(char **matrix, int *cols);
+void	get_data_size(char **matrix, int *cols);
 void	ft_free(void **array);
 /* utils.c */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	check_after_string_data(char *str, int ret, int extra);
 #endif
