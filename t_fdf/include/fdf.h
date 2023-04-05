@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/04 17:17:11 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:12:05 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 # include "libft.h"
 # include "mlx.h"
-#include <math.h>
+# include <math.h>
 # include <stdarg.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include <unistd.h>
 // to be deleted
+# include <string.h>
 # include <stdio.h>
 # include <limits.h>
+
 // # include "fdf.h"
 // # ifdef __APPLE__
 // #  include "lib/minilibx_macos/mlx.h"
@@ -44,21 +46,47 @@
 #  define SCREEN_HIGHT 920
 # endif
 
-typedef struct	s_data {
-	void	*img;
+typedef struct s_img
+{
+	void		*img;
+	char		*ptr;
+	int			bpp;
+	int			endian;
+}				t_img;
+
+typedef struct s_matrix{
+	int				x;
+	int				y;
+	int				z;
+	int				color;
+	struct s_matrix	*previous;
+	struct s_matrix	*next;
+}				t_matrix;
+
+typedef struct s_map
+{
+	int			x_width;
+	int			y_height;
+	int			z_min;
+	int			z_max;
+	t_matrix	*matrix;
+}				t_map;
+
+typedef struct s_data{
+	void	*xml;
+	t_map	*map;
+	t_img	*img;
 	char	*addr;
-	int		bits_per_pixel;
 	int		line_length;
-	int		endian;
-	int		cols;
-	int		rows;
 }				t_data;
 
 /* check_error.c */
-void	ft_error(char *msg);
-void	get_data_size(char **matrix, int *cols);
-void	ft_free(void **array);
+void		ft_error(char *msg);
+void		get_map_size(char **matrix, int *cols);
+void		ft_free(void **array);
 /* utils.c */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	check_after_string_data(char *str, int ret, int extra);
+void		ft_free(void **array);
+t_matrix	*last_element(t_matrix *ptr);
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		check_after_string_data(char *str, int ret, int extra);
 #endif
