@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/05 15:11:35 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:14:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	ft_free(void **array)
 	free(array);
 }
 
-t_matrix	*last_element(t_matrix *ptr)
-{
-	t_matrix	*last;
+// t_matrix	*last_element(t_matrix *ptr)
+// {
+// 	t_matrix	*last;
 
-	last = ptr;
-	while (last->next)
-		last = last->next;
-	return (last);
-}
+// 	last = ptr;
+// 	while (last->next)
+// 	{
+// 		last = last->next;
+// 	}
+// 	return (last);
+// }
 
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 // {

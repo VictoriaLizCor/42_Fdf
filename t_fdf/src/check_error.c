@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/05 10:59:25 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:39:53 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_error(char *msg)
 
 static void	check_color(char *str)
 {
-	if (ft_strnstr(str, "0x", 2))
+	if (ft_strnstr(str, "0x", 2) && ft_strlen(str) <= 8)
 	{
 		str = str + 2;
 		while (*str)

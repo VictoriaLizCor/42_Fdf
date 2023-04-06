@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/05 15:12:05 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:30:29 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct s_matrix{
 	int				y;
 	int				z;
 	int				color;
-	struct s_matrix	*previous;
-	struct s_matrix	*next;
+	// struct s_matrix	*previous;
+	// struct s_matrix	*next;
 }				t_matrix;
 
 typedef struct s_map
@@ -69,7 +69,7 @@ typedef struct s_map
 	int			y_height;
 	int			z_min;
 	int			z_max;
-	t_matrix	*matrix;
+	t_matrix	**matrix;
 }				t_map;
 
 typedef struct s_data{
