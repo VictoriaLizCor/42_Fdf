@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/06 16:30:29 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:40:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_matrix{
 	int				x;
 	int				y;
 	int				z;
-	int				color;
+	int				rgb;
 	// struct s_matrix	*previous;
 	// struct s_matrix	*next;
 }				t_matrix;
