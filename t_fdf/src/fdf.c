@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/07 16:12:24 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/07 19:27:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	int_rgb_color(char *str_color)
 	int	int_color;
 	int	hex;
 	int	len;
-	int i;
+	int	i;
 
 	len = (int)ft_strlen(str_color) - 1;
 	i = len;
 	int_color = 0;
-	while ( i > -1)
+	while (i > -1)
 	{
 		hex = str_color[i] - '0';
 		if (!ft_isdigit(str_color[i]))
@@ -34,29 +34,14 @@ int	int_rgb_color(char *str_color)
 	return (int_color);
 }
 
-
-// static void	add_node(t_matrix **matrix, t_matrix *new_node)
-// {
-// 	t_matrix	*last;
-
-// 	if (!(*matrix))
-// 		*matrix = new_node;
-// 	else
-// 	{
-// 		last = last_element(*matrix);
-// 		last->next = new_node;
-// 		new_node->previous = last;
-// 		// if (!(*(argv + 1)))
-// 		// 	(*ptr)->previous = new_node;
-// 	}
-// }
-
 void	read_map(t_map **map, int fd)
 {
 	char	*row;
 	char	**row_data;
 	int		tmp_x;
 
+	if (fd < 0)
+		return ;
 	*map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	while (1)
 	{
@@ -75,36 +60,30 @@ void	read_map(t_map **map, int fd)
 	}
 	if ((*map)->y_height < 1 || (*map)->x_width < 2)
 		ft_error("Error: Empty map");
-	if (close(fd) == -1)
-		ft_error("Error: Unable to close file");
+	close(fd);
 }
 
-void	fill_matrix(t_matrix *row, int width, int y, char **row_data)
+void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 {
 	int			x;
 
 	x = 0;
-	ft_printf("map size: [ %d , %d ] \t\t %p\n", y, width, row);
-	while (x < width)
+	ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_width, row);
+	while (x < (*map)->x_width)
 	{
-		printf("%d | %d \t", x, row[x].z);
+		ft_printf("%d | %d \t", x, row[x].z);
 		row[x].x = x + 1;
 		row[x].y = y;
 		row[x].z = ft_atoi(row_data[x]);
+		if (row[x].z < (*map)->z_min)
+			(*map)->z_min = row[x].z;
+		if (row[x].z > (*map)->z_max)
+			(*map)->z_max = row[x].z;
 		if (ft_strchr(row_data[x], ','))
 			row[x].rgb = int_rgb_color(ft_strchr(row_data[x], ',') + 3);
 		else
 			row[x].rgb = (int)0xFFFFFF;
 		printf("%d | %d \n", x, row[x].z);
-		// printf("%d | %d \t", x, (row + x)->z);
-		// (row + x)->x = x + 1;
-		// (row + x)->y = y;
-		// (row + x)->z = ft_atoi(line_data[x]);
-		// if (ft_strchr(line_data[x], ','))
-		// 	(row + x)->rgb = int_rgb_color(ft_strchr(line_data[x], ',') + 3);
-		// else
-		// 	(row + x)->rgb = (int)0xFFFFFF;
-		// printf("%d | %d \n", x, (row + x)->z);
 		x++;
 	}
 }
@@ -114,26 +93,28 @@ void	get_map_data(t_map **map, int fd)
 	int			y;
 	char		*row;
 	char		**row_data;
-	t_matrix	*m;
+	t_matrix	*matrix;
 
-	m = (t_matrix *)ft_calloc(sizeof(t_matrix), \
+	if (fd < 0 || !(*map))
+		return ;
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), \
 				(*map)->y_height * (*map)->x_width);
-	if (!m)
-		ft_error("Error: Unable to allocate data");
+	if (!matrix)
+		perror("Error: Unable to allocate data matrix");
 	y = 0;
+	(*map)->z_min = INT_MAX;
+	(*map)->z_max = INT_MIN;
 	while (y < (*map)->y_height)
 	{
 		row = get_next_line(fd);
-		ft_printf("\n%s\n", row);
 		row_data = ft_split(row, ' ');
-		fill_matrix(&m[y * (*map)->x_width], (*map)->x_width, y + 1, row_data);
+		fill_matrix(&matrix[y * (*map)->x_width], &*map, y + 1, row_data);
 		ft_free((void *)row_data);
 		free(row);
 		y++;
 	}
-	(*map)->matrix = &m;
-	if (close(fd) == -1)
-		ft_error("Error: Unable to close file");
+	(*map)->matrix = &matrix;
+	close(fd);
 }
 
 int	main(int argc, char **argv)
@@ -141,7 +122,7 @@ int	main(int argc, char **argv)
 	static t_data	data;
 
 	if (argc != 2)
-		ft_error("ERROR! |\t Valid input usage: \n ./fdf <filename>");
+		ft_error("[Error!] Valid input usage: \n ./fdf <filename>");
 	else
 	{
 		ft_printf("%s\n", argv[1]);
@@ -149,12 +130,23 @@ int	main(int argc, char **argv)
 			ft_error("Error: Invalid file");
 		read_map(&data.map, open(argv[1], O_RDONLY));
 		get_map_data(&data.map, open(argv[1], O_RDONLY));
-		
-		ft_printf("size: [ %d , %d ]\n", data.map->y_height, data.map->x_width);
+		printf("%p | %p\n", data.map, data.map->matrix);
+		if (errno == ENOENT)
+		{
+			perror("Error");
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			ft_printf("\n\nsize:[ %d, %d ]\n", data.map->y_height, data.map->x_width);
+			free(*(data.map->matrix));
+		}
 	}
 	exit(EXIT_SUCCESS);
 }
 
+	// while (i < 100)
+	// 	ft_printf("%d, %s\n",i,  strerror(i++));
 		// mlx = mlx_init();
 		// mlx_win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HIGHT, "42 FDF");
 		// // mlx_new_image(mlx_ptr_t *mlx_ptr, int width, int height)

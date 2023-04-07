@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:06:44 by lilizarr          #+#    #+#             */
-/*   Updated: 2022/10/11 10:04:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:24:53 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**ft_split(char const *s, char c)
 			a_size++;
 		s_i++;
 	}
-	split = ft_calloc((a_size), sizeof(char *));
+	split = ft_calloc(sizeof(char *), (a_size));
 	if (!split)
 		return (NULL);
 	if (a_size > 1)

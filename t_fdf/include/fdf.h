@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/07 15:40:01 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:09:18 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <errno.h>
 // to be deleted
 # include <string.h>
 # include <stdio.h>
@@ -55,12 +56,10 @@ typedef struct s_img
 }				t_img;
 
 typedef struct s_matrix{
-	int				x;
-	int				y;
-	int				z;
-	int				rgb;
-	// struct s_matrix	*previous;
-	// struct s_matrix	*next;
+	int	x;
+	int	y;
+	int	z;
+	int	rgb;
 }				t_matrix;
 
 typedef struct s_map
@@ -83,7 +82,6 @@ typedef struct s_data{
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
-void		ft_free(void **array);
 /* utils.c */
 void		ft_free(void **array);
 t_matrix	*last_element(t_matrix *ptr);
