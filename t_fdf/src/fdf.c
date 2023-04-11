@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 16:53:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:54:47 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
+	printf("data: \t%p\n", data);
 	if (argc != 2)
 		ft_error("[Error!] Valid input usage: \n ./fdf <filename>");
 	if (!ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])))
@@ -135,17 +136,18 @@ int	main(int argc, char **argv)
 		perror("Error");
 		exit(EXIT_FAILURE);
 	}
-	ft_printf("read_matrix : %p\n", *(data->map->matrix));
+	// ft_printf("read_matrix : %p\n", *(data->map->matrix));
 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \
 											data->map->x_width);
 	if (init_render(&data, argv[1]) == -1)
 		ft_error("mlx initialization failed.");
-	// ft_printf("matrix : %p\n\n", &*(data->map->matrix));
-	free(data->title);
-	ft_printf("matrix : %p\n\n", &*(data->map->matrix));
+	// ft_printf("matrix : \t%p\n\n", *(data->map->matrix));
 	free(*(data->map->matrix)); // free((void *)(*(data.map->matrix)));
+	free(data->map);
+	free(data->title);
 }
 
+	// free((void *)(*(data.map->matrix)));
 	// free((*(data.map->matrix)));
 		// printf("\n%p | %p\n\n", data.map, (void *)(*(data.map->matrix)));
 		// free((*(data.map->matrix)));
