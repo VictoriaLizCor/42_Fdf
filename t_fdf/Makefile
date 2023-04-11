@@ -1,8 +1,9 @@
 NAME = fdf
 
 SRCS_DIR := src/
-SRCS =	src/fdf.c		\
-		src/utils.c		\
+SRCS =	src/fdf.c			\
+		src/render.c		\
+		src/utils.c			\
 		src/check_error.c
 
 CFLAGS = -Wall -Wextra #-Werror

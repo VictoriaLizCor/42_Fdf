@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/07 18:09:18 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:50:15 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,30 @@ typedef struct s_map
 }				t_map;
 
 typedef struct s_data{
-	void	*xml;
-	t_map	*map;
+	void	*mlx;
+	void	*window;
 	t_img	*img;
+	t_map	*map;
+	// t_cam	*cam;
 	char	*addr;
 	int		line_length;
+	char	*title;
 }				t_data;
 
+/* fdf.c (main)*/
+// static int	int_rgb_color(char *str_color);
+// static int	read_map(t_map **map, int fd);
+// static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data);
+// static int	get_map_data(t_map **map, int fd, int y);
+int			main(int argc, char **argv);
+/* render.c */
+// void		render;
+int			init_render(t_data *data, void *mlx, char *file);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
-t_matrix	*last_element(t_matrix *ptr);
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		check_after_string_data(char *str, int ret, int extra);
 #endif
