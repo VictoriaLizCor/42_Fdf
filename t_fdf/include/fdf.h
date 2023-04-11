@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 13:50:15 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:33:42 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@
 //     DoSomethingElse();
 // #else
 //     GenerateErrorOrIgnore
-# ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1080
+# ifndef WIN_WIDTH
+#  define WIN_WIDTH 1080
 # endif
 
-# ifndef SCREEN_HIGHT
-#  define SCREEN_HIGHT 920
+# ifndef WIN_HIGHT
+#  define WIN_HIGHT 920
 # endif
 
 typedef struct s_img
@@ -72,14 +72,14 @@ typedef struct s_map
 }				t_map;
 
 typedef struct s_data{
-	void	*mlx;
-	void	*window;
 	t_img	*img;
 	t_map	*map;
 	// t_cam	*cam;
 	char	*addr;
 	int		line_length;
 	char	*title;
+	void	*mlx;
+	void	*win;
 }				t_data;
 
 /* fdf.c (main)*/
@@ -90,12 +90,13 @@ typedef struct s_data{
 int			main(int argc, char **argv);
 /* render.c */
 // void		render;
-int			init_render(t_data *data, void *mlx, char *file);
+int			init_render(t_data **data, char *file);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
+void		check_map_data(t_map *map);
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		check_after_string_data(char *str, int ret, int extra);
 #endif

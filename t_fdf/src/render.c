@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 13:51:02 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:52:35 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@
 	
 // }
 
-int	init_render(t_data *data, void *mlx, char *file)
+int	init_render(t_data **data, char *file)
 {
-	data->mlx = mlx;
-	if (!data->mlx)
+	printf("map %p\n", (*data)->map);
+	printf("matrix %p\n", &(*data)->map->matrix);
+	check_map_data((*data)->map);
+	printf("%p\n", (*data)->mlx);
+	(*data)->title = ft_strjoin("42 Fdf | ", file);
+	(*data)->mlx = mlx_init();
+	if (!(*data)->mlx)
 		return (-1);
-	data->title = ft_strjoin("42 Fdf | ", file);
-	ft_printf("title: %s | %p\n", data->title, data->title);
-	//free(data->title);
-	ft_printf("%p\n", *(data->map->matrix));
-	free(*(data->map->matrix));
+	(*data)->win = mlx_new_window((*data)->mlx, WIN_WIDTH, WIN_HIGHT, \
+								(*data)->title);
+	if (!(*data)->win)
+		return (-1);
+	check_map_data((*data)->map);
 	return (0);
-	// free((*(data->map->matrix)));
 }
+// ft_printf("%p\n", (*data)->win);

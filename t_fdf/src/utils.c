@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 10:10:55 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:27:25 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,36 @@ void	ft_free(void **array)
 // 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 // 	*(unsigned int *)dst = color;
 // }
+void	check_map_data(t_map *map)
+{
+	int			row;
+	int			col;
+	int			tmp;
+	t_matrix	*m;
+
+	row = 0;
+	m = *(map->matrix);
+	ft_printf("%p\n", m);
+	while (row < map->y_height)
+	{
+		col = 0;
+		while (col < map->x_width)
+		{
+			tmp = row * map->x_width + col;
+			ft_printf("(%d, %d, %d, %d) \t %p\n", m[tmp].y, m[tmp].x, \
+			m[tmp].z, m[tmp].rgb, &m[tmp]);
+			col++;
+		}
+		row++;
+		ft_printf("\n");
+	}
+}
+	// while(row < map->y_height * map->x_width)
+	// {
+	// 	ft_printf("(%d, %d, %d, %d) \t %p\n", m[row].y, m[row].x, \
+	// 		m[row].z, m[row].rgb, &m[row]);
+	// 	row++;
+	// }
 
 void	check_after_string_data(char *str, int ret, int extra)
 {
