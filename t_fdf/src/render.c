@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 17:55:28 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:56:05 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	init_render(t_data **data, char *file)
 	(*data)->mlx = mlx_init();
 	if (!((*data)->mlx))
 		return (-1);
-	printf("mlx : \t\t%p\n", (*data)->mlx);
+	ft_printf("mlx : \t\t%p\n", (*data)->mlx);
 	(*data)->win = mlx_new_window((*data)->mlx, WIN_WIDTH, WIN_HIGHT, \
 								(*data)->title);
 	if (!((*data)->win))
 		return (-1);
-	printf("window: \t%p\n", (*data)->win);
+	ft_printf("window: \t%p\n", (*data)->win);
 	// check_map_data((*data)->map);
 	return (0);
 }
