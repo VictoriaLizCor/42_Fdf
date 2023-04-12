@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 16:27:25 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:21:10 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,20 @@ void	check_map_data(t_map *map)
 	t_matrix	*m;
 
 	row = 0;
-	m = *(map->matrix);
-	ft_printf("%p\n", m);
+	m = map->matrix;
+	printf("%p\n", m);
 	while (row < map->y_height)
 	{
 		col = 0;
 		while (col < map->x_width)
 		{
-			tmp = row * map->x_width + col;
-			ft_printf("(%d, %d, %d, %d) \t %p\n", m[tmp].y, m[tmp].x, \
+			tmp = (row * map->x_width) + col;
+			printf("temp %d | (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, m[tmp].y, m[tmp].x, \
 			m[tmp].z, m[tmp].rgb, &m[tmp]);
 			col++;
 		}
 		row++;
-		ft_printf("\n");
+		printf("\n");
 	}
 }
 	// while(row < map->y_height * map->x_width)
@@ -76,6 +76,10 @@ void	check_map_data(t_map *map)
 	// 		m[row].z, m[row].rgb, &m[row]);
 	// 	row++;
 	// }
+	// tmp = (row * map->x_width) + col;
+	// 		printf("temp %d |   (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, (m+tmp)->y, (m + tmp)->x, \
+	// 		(m+tmp)->z, (m+tmp)->rgb, *(m+tmp));
+	// 		col++;
 
 void	check_after_string_data(char *str, int ret, int extra)
 {

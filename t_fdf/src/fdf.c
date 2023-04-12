@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 17:54:47 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:40:13 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	read_map(t_map **map, int fd)
 		return (-1);
 	*map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (!*map)
-		ft_error("Error: Unable to allocate map");
+		ft_error("Unable to allocate map");
 	while (1)
 	{
 		tmp_x = 0;
@@ -55,7 +55,7 @@ static int	read_map(t_map **map, int fd)
 		(*map)->y_height++;
 		get_map_size(row_data, &tmp_x);
 		if (tmp_x != (*map)->x_width && (*map)->x_width)
-			ft_error("Error: Invalid map size");
+			ft_error("Invalid map size");
 		(*map)->x_width = tmp_x;
 		ft_free((void *)row_data);
 		free(row);
@@ -75,13 +75,14 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 		row[x].y = y;
 		row[x].z = ft_atoi(row_data[x]);
 		if (row[x].z < (*map)->z_min)
-			(*map)->z_min = row[x].z;
+			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)
-			(*map)->z_max = row[x].z;
+			(*map)->z_max = (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
 			row[x].rgb = int_rgb_color(ft_strchr(row_data[x], ',') + 3);
 		else
 			row[x].rgb = (int)0xFFFFFF;
+		// printf("%d | %.2f \n", x, row[x].z);
 		x++;
 	}
 }
@@ -93,33 +94,32 @@ static int	get_map_data(t_map **map, int fd, int y)
 {
 	char		*row;
 	char		**row_data;
-	t_matrix	*matrix;
 
 	if (fd < 0 || !*map)
 		return (-1);
 	if ((*map)->y_height < 1 || (*map)->x_width < 2)
-		ft_error("Error: Empty map");
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), \
+		ft_error("Empty map");
+	(*map)->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), \
 				(*map)->y_height * (*map)->x_width);
-	if (!matrix)
-		ft_error("Error: Unable to allocate data matrix");
+	if (!(*map)->matrix)
+		ft_error("Unable to allocate data matrix");
 	(*map)->z_min = INT_MAX;
 	(*map)->z_max = INT_MIN;
 	while (y < (*map)->y_height)
 	{
 		row = get_next_line(fd);
 		row_data = ft_split(row, ' ');
-		fill_matrix(&matrix[y * (*map)->x_width], &*map, y + 1, row_data);
+		fill_matrix(&(*map)->matrix[y * (*map)->x_width], \
+					&*map, y + 1, row_data);
 		ft_free((void *)row_data);
 		free(row);
 		y++;
 	}
-	(*map)->matrix = &matrix;
 	return (close(fd));
 }
-
 	// ft_printf("matrix_original : %p\n", matrix);
 	// ft_printf("matrix_creation : %p\n", *(*map)->matrix);
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -127,25 +127,28 @@ int	main(int argc, char **argv)
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	printf("data: \t%p\n", data);
 	if (argc != 2)
-		ft_error("[Error!] Valid input usage: \n ./fdf <filename>");
-	if (!ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])))
-		ft_error("Error: Invalid file");
-	if (read_map(&data->map, open(argv[1], O_RDONLY)) == -1 || \
-		get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1)
-	{
-		perror("Error");
-		exit(EXIT_FAILURE);
-	}
-	// ft_printf("read_matrix : %p\n", *(data->map->matrix));
+		ft_error("Invalid command\nValid input usage: \n ./fdf <filename.fdf>");
+	if (!(ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1]))))
+		ft_error(" Invalid file");
+	if ((read_map(&data->map, open(argv[1], O_RDONLY)) == -1) || \
+		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
+		ft_error(strerror(errno));
+	// ft_error("Failed to open or close the file");
+	ft_printf("read_matrix : %p\n", *data->map->matrix);
+	// check_map_data(data->map);
+	// fflush(stdout);
 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \
 											data->map->x_width);
-	if (init_render(&data, argv[1]) == -1)
-		ft_error("mlx initialization failed.");
-	// ft_printf("matrix : \t%p\n\n", *(data->map->matrix));
-	free(*(data->map->matrix)); // free((void *)(*(data.map->matrix)));
-	free(data->map);
-	free(data->title);
+	if (init_render_data(&data, argv[1]) == -1)
+		ft_error("MLX initialization failed.");
+	// check_map_data(data->map);
+	render(data, 0, 0);
+	return (0);
+	// exit (EXIT_SUCCESS);
 }
+	// free(*(data->map->matrix)); // free((void *)(*(data.map->matrix)));
+	// free(data->map);
+	// free(data->title);
 
 	// free((void *)(*(data.map->matrix)));
 	// free((*(data.map->matrix)));

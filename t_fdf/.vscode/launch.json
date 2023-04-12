@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug fdf",
+            "program": "${workspaceFolder}/fdf",
+            "args": [
+                "maps/test/2_row.fdf"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+    ]
+}

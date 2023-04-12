@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/11 16:33:42 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:08:41 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,59 @@
 //     DoSomethingElse();
 // #else
 //     GenerateErrorOrIgnore
-# ifndef WIN_WIDTH
-#  define WIN_WIDTH 1080
+# ifndef WIN_W
+#  define WIN_W 1080
 # endif
 
-# ifndef WIN_HIGHT
-#  define WIN_HIGHT 920
+# ifndef WIN_H
+#  define WIN_H 920
 # endif
+
+typedef struct s_cam
+{
+	double		offsetx;
+	double		offsety;
+	double		x;
+	double		y;
+	int			scale;
+	double		**matrix;
+}					t_cam;
+
+typedef struct s_mouse
+{
+	char		isdown;
+	int			x;
+	int			y;
+	int			lastx;
+}				t_mouse;
 
 typedef struct s_img
 {
 	void		*img;
-	char		*ptr;
+	char		*addr;
 	int			bpp;
+	int			line_length;
 	int			endian;
 }				t_img;
 
 typedef struct s_matrix{
-	int	x;
-	int	y;
-	int	z;
-	int	rgb;
+	float	x;
+	float	y;
+	float	z;
+	int		rgb;
 }				t_matrix;
+
+typedef struct s_line
+{
+	t_matrix	start;
+	t_matrix	stop;
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			err2;
+}				t_line;
 
 typedef struct s_map
 {
@@ -68,18 +99,18 @@ typedef struct s_map
 	int			y_height;
 	int			z_min;
 	int			z_max;
-	t_matrix	**matrix;
+	t_matrix	*matrix;
 }				t_map;
 
 typedef struct s_data{
-	t_img	*img;
-	t_map	*map;
-	// t_cam	*cam;
-	char	*addr;
-	int		line_length;
-	char	*title;
 	void	*mlx;
 	void	*win;
+	t_img	*img;
+	t_map	*map;
+	t_cam	*cam;
+	t_mouse	*mouse;
+	char	*title;
+	double	**zbuf;
 }				t_data;
 
 /* fdf.c (main)*/
@@ -90,7 +121,8 @@ typedef struct s_data{
 int			main(int argc, char **argv);
 /* render.c */
 // void		render;
-int			init_render(t_data **data, char *file);
+int			init_render_data(t_data **data, char *file);
+void		render(t_data *data, int x, int y);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);

@@ -35,7 +35,7 @@ all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
 $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $(OBJS) -o $@ $(LIBFT) $(MLX) 
+	cc -g $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $(OBJS) -o $@ $(LIBFT) $(MLX) 
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
@@ -43,7 +43,7 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@
+	cc -g -c $(CFLAGS) $(CINCLUDES) $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $@
