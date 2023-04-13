@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 17:38:36 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:47:16 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 		d = fabs(line.dx);
 	else
 		d = fabs(line.dy);
-	line.dx = (line.dx / d) * 0.1;
-	line.dy = (line.dy / d) * 0.1;;
+	line.dx = (line.dx / d);
+	line.dy = (line.dy / d);;
 	// printf("x = %d | y = %d\n", (int)(line.p0.x), (int)(line.p1.y - line.p0.y));
 	// while (1)
 	while (round(line.p1.y - line.p0.y) || round(line.p1.x - line.p0.x))
@@ -66,8 +66,6 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 		mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, line.p0.rgb);
 		line.p0.x += line.dx;
 		line.p0.y += line.dy;
-		// if (line.p0.x > line.p1.x || line.p0.y > line.p1.y)
-		// 	break ;
 	}
 }
 
@@ -100,14 +98,9 @@ void	render(t_data *data, int x, int y)
 		{
 			mp = perspective(m[y * w + x], data);
 			if (x < (map->x_width - 1))
-			{
-				ft_printf("\t\t\t\tx = %d | y= %d\n", x, y);
 				draw_line(data, mp, perspective(m[y * w + (x + 1)], data));
-			}
 			if (y < (map->y_height - 1))
-			{
 				draw_line(data, mp, perspective(m[(y + 1) * w + x], data));
-			}
 			x++;
 		}
 		y++;
