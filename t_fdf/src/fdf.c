@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 13:09:54 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:41:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 	{
 		row[x].x = x + 1;
 		row[x].y = y;
-		row[x].z = ft_atoi(row_data[x]);
+		row[x].z = (float)ft_atoi(row_data[x]);
 		if (row[x].z < (*map)->z_min)
 			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)

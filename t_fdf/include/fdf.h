@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 13:00:03 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:39:51 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@
 
 typedef struct s_cam
 {
-	double		offsetx;
-	double		offsety;
-	double		x;
-	double		y;
+	float		offsetx;
+	float		offsety;
+	float		x;
+	float		y;
 	int			scale;
 	double		**matrix;
 }					t_cam;
