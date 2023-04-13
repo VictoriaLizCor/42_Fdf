@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/12 16:40:13 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:09:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ int	main(int argc, char **argv)
 		ft_error("MLX initialization failed.");
 	// check_map_data(data->map);
 	render(data, 0, 0);
+	mlx_loop(data->mlx);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
 	return (0);
 	// exit (EXIT_SUCCESS);
 }

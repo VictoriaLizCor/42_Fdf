@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/12 17:03:21 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:16:56 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,35 @@ t_matrix	perspective(t_matrix m, t_data *data)
 	map = data->map;
 	w = map->x_width;
 	h = map->y_height;
-	m.x -= (double)(w - 1) * 0.3;
-	m.y -= (double)(h - 1) * 0.3;
-	m.z -= (double)(map->z_min + map->z_max) * 0.3;
+	m.x -= ((m.x - 1.0) / (w - 1.0)) * 0.5;
+	m.y -= ((m.y - 1.0) / (h - 1.0)) * 0.5;
+	m.z -= (m.z - (float)map->z_min) / (float)(map->z_max - map->z_min) * 0.5;
 	isometric_projection(&m, data->cam);
-	printf("%.2f, %.2f, %.2f, %d) \n", m.y, m.x, \
-			m.z, m.rgb);
 	return (m);
 }
+// printf("%.2f, %.2f, %.2f, %d) \n", m.y, m.x, \
+			// m.z, m.rgb);
 
-void	draw_line()
+void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 {
-	
+	t_line	line;
+	float	d;
+
+	line.p0 = p0;
+	line.p1 = p1;
+	line.dx = fabsf(p1.x - p0.x);
+	line.dy = fabsf(p0.y - p0.y);
+	d = line.dy;
+	if (line.dx > line.dy)
+		d = line.dx;
+	line.dx /= d;
+	line.dy /= d;
+	while ((int)(p1.x - p0.x) || (int)(p1.y - p0.y))
+	{
+		mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, p0.rgb);
+		line.p0.x += line.dx;
+		line.p0.y += line.dy;
+	}
 }
 
 void	render(t_data *data, int x, int y)
@@ -52,25 +69,26 @@ void	render(t_data *data, int x, int y)
 	t_map		*map;
 	t_matrix	*m;
 	t_matrix	mp;
-	int			tmp;
+	int			w;
 
 	map = data->map;
 	m = map->matrix;
+	w = map->x_width;
 	while (y < map->y_height)
 	{
 		while (x < map->x_width)
 		{
-			tmp = y * map->x_width + x;
-			mp = perspective(m[tmp], data);
+			mp = perspective(m[y * w + x], data);
 			if (x < map->x_width - 1)
-				
+				draw_line(data, mp, perspective(m[y * w + (x + 1)], data));
 			if (y < map->y_height - 1)
+				draw_line(data, mp, perspective(m[(y + 1) * w + x], data));
 			x++;
 		}
-		ft_printf("\n");
 		x = 0;
 		y++;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }
 // printf("%.2f, %.2f, %.2f, %d) \n", m[tmp].y, m[tmp].x, \
 // m[tmp].z, m[tmp].rgb);
@@ -99,8 +117,8 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
 	if (!((*data)->mouse) || !((*data)->img) || !((*data)->win))
 		return (-1);
-	(*data)->img->img = mlx_new_image(&(*data)->mlx, WIN_W, WIN_H);
-	(*data)->img->addr = mlx_get_data_addr(&(*data)->img->img, \
+	(*data)->img->img = mlx_new_image((*data)->mlx, WIN_W, WIN_H);
+	(*data)->img->addr = mlx_get_data_addr((*data)->img->img, \
 		&(*data)->img->bpp, &(*data)->img->line_length, &(*data)->img->endian);
 	(*data)->img->bpp /= 8;
 	ft_printf("window: \t%p\n", (*data)->win);
@@ -110,9 +128,9 @@ int	init_render_data(t_data **data, char *file)
 	// check_map_data((*data)->map);
 	(*data)->cam->x = 0.3;
 	(*data)->cam->y = 0.3;
-	(*data)->cam->scale = 30;
-	(*data)->cam->offsetx = WIN_W / 2;
-	(*data)->cam->offsety = WIN_H / 2;
+	(*data)->cam->scale = 2;
+	(*data)->cam->offsetx = WIN_W * 0.5;
+	(*data)->cam->offsety = WIN_H * 0.5;
 	if (!((*data)->win))
 		return (-1);
 	return (0);

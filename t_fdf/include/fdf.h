@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/12 15:08:41 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:00:03 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,22 @@ typedef struct s_img
 }				t_img;
 
 typedef struct s_matrix{
-	float	x;
-	float	y;
-	float	z;
-	int		rgb;
+	float		x;
+	float		y;
+	float		z;
+	int			rgb;
 }				t_matrix;
 
 typedef struct s_line
 {
-	t_matrix	start;
-	t_matrix	stop;
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			err;
-	int			err2;
+	t_matrix	p0;
+	t_matrix	p1;
+	float		dx;
+	float		dy;
+	// float		sx;
+	// float		sy;
+	// float		err;
+	// float		err2;
 }				t_line;
 
 typedef struct s_map
@@ -103,14 +103,14 @@ typedef struct s_map
 }				t_map;
 
 typedef struct s_data{
-	void	*mlx;
-	void	*win;
-	t_img	*img;
-	t_map	*map;
-	t_cam	*cam;
-	t_mouse	*mouse;
-	char	*title;
-	double	**zbuf;
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	t_map		*map;
+	t_cam		*cam;
+	t_mouse		*mouse;
+	char		*title;
+	double		**zbuf;
 }				t_data;
 
 /* fdf.c (main)*/
