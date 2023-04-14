@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:06:44 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/07 17:24:53 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:54:47 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	s_i = 0;
 	a_size = 1;
+	ft_printf("split\n");
 	while (s[s_i])
 	{
 		if (s[s_i] != c && (s[s_i + 1] == '\0' || s[s_i + 1] == c))

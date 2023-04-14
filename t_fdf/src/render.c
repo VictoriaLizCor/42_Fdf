@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 17:47:16 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:36:33 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,11 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 		line.p0.y += line.dy;
 	}
 }
-
 		// printf("x0 = %d | y0 = %d\n", (int)(line.p0.x), (int)(line.p0.y));
 		// printf("x1 = %.2f | y1 = %.2f\n", (line.p1.x), (line.p1.y));
 		// printf("0 = %.2f | 0 = %.2f\n", (p0.x), (p0.y));
 		// printf("1 = %.2f | 1 = %.2f\n", (p1.x), (p1.y));
 		// printf("dx = %.2f | dy = %.2f\n\n", line.dx, (line.dy));
-
-void	clear_image(t_img *img)
-{
-	ft_bzero(img->addr, WIN_W * WIN_H * img->bpp);
-}
 
 void	render(t_data *data, int x, int y)
 {
@@ -105,7 +99,7 @@ void	render(t_data *data, int x, int y)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	print_onscreen(data);
 }
 // printf("%.2f, %.2f, %.2f, %d) \n", m[tmp].y, m[tmp].x, \
 // m[tmp].z, m[tmp].rgb);
@@ -113,16 +107,13 @@ void	render(t_data *data, int x, int y)
 int	init_render_data(t_data **data, char *file)
 {
 	ft_printf("map: \t\t%p\n", (*data)->map);
-	ft_printf("*matrix: \t%p\n", *(*data)->map->matrix);
+	ft_printf("*matrix: \t%p\n", (*data)->map->matrix);
 	// check_map_data((*data)->map);
 	(*data)->title = ft_strjoin("42 Fdf | ", file);
 	(*data)->mlx = mlx_init();
 	if (!((*data)->mlx))
 		return (-1);
-	ft_printf("mlx : \t\t%p\n\n", (*data)->mlx);
-	ft_printf("window: \t%p\n", (*data)->win);
-	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
-	ft_printf("img: \t\t%p\n\n", (*data)->img);
+	ft_printf("mlx : \t\t%p\n", (*data)->mlx);
 	(*data)->win = mlx_new_window((*data)->mlx, WIN_W, \
 					WIN_H, (*data)->title);
 	(*data)->mouse = (t_mouse *)ft_calloc(sizeof(t_mouse), 1);
@@ -143,11 +134,7 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
 	// check_map_data((*data)->map);
-	(*data)->cam->x = 0.4;
-	(*data)->cam->y = 0.4;
-	(*data)->cam->scale = 30;
-	(*data)->cam->offsetx =  ((WIN_W - (WIN_W * 0.5)) * 0.5);
-	(*data)->cam->offsety = ((WIN_H - (WIN_H * 0.5))* 0.5);
+	init_cam((*data)->cam, (*data)->map->x_width);
 	if (!((*data)->win))
 		return (-1);
 	return (0);

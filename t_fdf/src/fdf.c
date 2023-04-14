@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 15:41:44 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:57:32 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	read_map(t_map **map, int fd)
 			break ;
 		row_data = ft_split(row, ' ');
 		(*map)->y_height++;
+		ft_printf("row %d\n", (*map)->y_height);
 		get_map_size(row_data, &tmp_x);
 		if (tmp_x != (*map)->x_width && (*map)->x_width)
 			ft_error("Invalid map size");
@@ -60,6 +61,7 @@ static int	read_map(t_map **map, int fd)
 		ft_free((void *)row_data);
 		free(row);
 	}
+	ft_printf("Done reading map\n");
 	return (close(fd));
 }
 
@@ -115,6 +117,7 @@ static int	get_map_data(t_map **map, int fd, int y)
 		free(row);
 		y++;
 	}
+	ft_printf("Done getting data map\n");
 	return (close(fd));
 }
 	// ft_printf("matrix_original : %p\n", matrix);
@@ -133,8 +136,7 @@ int	main(int argc, char **argv)
 	if ((read_map(&data->map, open(argv[1], O_RDONLY)) == -1) || \
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
-	// ft_error("Failed to open or close the file");
-	ft_printf("read_matrix : %p\n", *data->map->matrix);
+	ft_printf("read_matrix : %p\n", data->map->matrix);
 	// check_map_data(data->map);
 	// fflush(stdout);
 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \

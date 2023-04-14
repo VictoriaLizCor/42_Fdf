@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/13 17:48:29 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:38:37 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_cam
 	float		offsety;
 	float		x;
 	float		y;
-	int			scale;
+	float		scale;
 	double		**matrix;
 }					t_cam;
 
@@ -128,6 +128,9 @@ void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
+void		init_cam(t_cam *cam, int width);
+void		print_onscreen(t_data	*d);
+void		clear_image(t_img *img);
 void		check_map_data(t_map *map);
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		check_after_string_data(char *str, int ret, int extra);

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/12 10:19:02 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:20:57 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,26 @@ void	ft_error(char *msg)
 
 static void	check_color(char *str)
 {
-	if (ft_strnstr(str, "0x", 2) && ft_strlen(str) <= 8)
+	size_t	len;
+
+	len = 8;
+	if (ft_strchr(str, '\n'))
+		len = 9;
+	if (ft_strnstr(str, "0x", 2) && ft_strlen(str) <= len)
 	{
 		str = str + 2;
-		while (*str)
+		while (*str != '\n' && *str != '\0')
 		{
+			ft_printf(" \t %s\n", str);
 			*str = ft_toupper(*str);
+			ft_printf(" %d ", *str);
 			if ((*str < '0' || *str > '9') && (*str < 'A' || *str > 'F'))
-				ft_error("Invalid color input");
+				ft_error("+Invalid color input");
 			str++;
 		}
 	}
 	else
-		ft_error("Invalid color input");
+		ft_error("*Invalid color input");
 }
 
 void	get_map_size(char **matrix, int *cols)
@@ -56,6 +63,7 @@ void	get_map_size(char **matrix, int *cols)
 			copy++;
 		if (ft_strchr(copy, ','))
 		{
+			ft_printf("col: %d | %s | %s", *cols, *matrix, copy + 1);
 			check_color(copy + 1);
 			copy = copy + ft_strlen(ft_strchr(copy, ','));
 		}
