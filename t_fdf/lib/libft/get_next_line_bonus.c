@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 11:53:20 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 12:01:58 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:22:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char	*get_next_line(int fd)
 	if (!read_buffer)
 		return (NULL);
 	read_buffer[BUFFER_SIZE] = 0;
-	ft_printf("start_get\n");
 	while (1)
 	{
 		ret = read(fd, read_buffer, BUFFER_SIZE);
@@ -119,6 +118,5 @@ char	*get_next_line(int fd)
 	}
 	free(read_buffer);
 	search_line(&list[fd], &line);
-	ft_printf("done_get\n");
 	return (&*line);
 }

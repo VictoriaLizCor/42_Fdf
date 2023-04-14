@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 11:36:33 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:49:27 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 {
 	t_line	line;
 	float	d;
+	int		pxc;
 
 	line.p0 = p0;
 	line.p1 = p1;
@@ -59,15 +60,17 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 		d = fabs(line.dy);
 	line.dx = (line.dx / d);
 	line.dy = (line.dy / d);;
-	// printf("x = %d | y = %d\n", (int)(line.p0.x), (int)(line.p1.y - line.p0.y));
-	// while (1)
 	while (round(line.p1.y - line.p0.y) || round(line.p1.x - line.p0.x))
 	{
-		mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, line.p0.rgb);
+		pxc = line.p0.rgb;
+		if (!(*data).map->color_change)
+			pixel_color(&pxc, line.p0, line.p1, data);
+		mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, pxc);
 		line.p0.x += line.dx;
 		line.p0.y += line.dy;
 	}
 }
+// color = (*data).map->rgb_min + (int)(line.p0.x * line.p0.y * line.p0.z);
 		// printf("x0 = %d | y0 = %d\n", (int)(line.p0.x), (int)(line.p0.y));
 		// printf("x1 = %.2f | y1 = %.2f\n", (line.p1.x), (line.p1.y));
 		// printf("0 = %.2f | 0 = %.2f\n", (p0.x), (p0.y));
@@ -134,7 +137,7 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
 	// check_map_data((*data)->map);
-	init_cam((*data)->cam, (*data)->map->x_width);
+	init_cam((*data)->cam, (*data)->map);
 	if (!((*data)->win))
 		return (-1);
 	return (0);

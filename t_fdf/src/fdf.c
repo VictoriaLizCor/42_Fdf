@@ -6,20 +6,22 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 11:57:32 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:38:46 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
 //white = 16777215 = 0xffffff
-static int	int_rgb_color(char *str_color)
+static int	int_rgb(char *str_color, t_map **map)
 {
 	int	int_color;
 	int	hex;
 	int	len;
 	int	i;
 
+	if ((*map)->color_change != 1)
+		(*map)->color_change = 1;
 	len = (int)ft_strlen(str_color) - 1;
 	i = len;
 	int_color = 0;
@@ -53,7 +55,6 @@ static int	read_map(t_map **map, int fd)
 			break ;
 		row_data = ft_split(row, ' ');
 		(*map)->y_height++;
-		ft_printf("row %d\n", (*map)->y_height);
 		get_map_size(row_data, &tmp_x);
 		if (tmp_x != (*map)->x_width && (*map)->x_width)
 			ft_error("Invalid map size");
@@ -61,7 +62,6 @@ static int	read_map(t_map **map, int fd)
 		ft_free((void *)row_data);
 		free(row);
 	}
-	ft_printf("Done reading map\n");
 	return (close(fd));
 }
 
@@ -80,11 +80,10 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)
 			(*map)->z_max = (int)row[x].z;
+		row[x].rgb = (int)0xFFFFFF - (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
-			row[x].rgb = int_rgb_color(ft_strchr(row_data[x], ',') + 3);
-		else
-			row[x].rgb = (int)0xFFFFFF;
-		// printf("%d | %.2f \n", x, row[x].z);
+			row[x].rgb = int_rgb(ft_strchr(row_data[x], ',') + 3, &*map);
+		ft_printf("%d\n", row[x].rgb);
 		x++;
 	}
 }
@@ -117,7 +116,6 @@ static int	get_map_data(t_map **map, int fd, int y)
 		free(row);
 		y++;
 	}
-	ft_printf("Done getting data map\n");
 	return (close(fd));
 }
 	// ft_printf("matrix_original : %p\n", matrix);

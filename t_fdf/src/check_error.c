@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:43:32 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 12:20:57 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:12:08 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ static void	check_color(char *str)
 		str = str + 2;
 		while (*str != '\n' && *str != '\0')
 		{
-			ft_printf(" \t %s\n", str);
 			*str = ft_toupper(*str);
-			ft_printf(" %d ", *str);
 			if ((*str < '0' || *str > '9') && (*str < 'A' || *str > 'F'))
 				ft_error("+Invalid color input");
 			str++;
@@ -63,7 +61,6 @@ void	get_map_size(char **matrix, int *cols)
 			copy++;
 		if (ft_strchr(copy, ','))
 		{
-			ft_printf("col: %d | %s | %s", *cols, *matrix, copy + 1);
 			check_color(copy + 1);
 			copy = copy + ft_strlen(ft_strchr(copy, ','));
 		}

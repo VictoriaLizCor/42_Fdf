@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 11:38:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:29:25 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ typedef struct s_line
 	t_matrix	p1;
 	float		dx;
 	float		dy;
+}				t_line;
+
 	// float		sx;
 	// float		sy;
 	// float		err;
 	// float		err2;
-}				t_line;
 
 typedef struct s_map
 {
@@ -99,6 +100,7 @@ typedef struct s_map
 	int			y_height;
 	int			z_min;
 	int			z_max;
+	int			color_change;
 	t_matrix	*matrix;
 }				t_map;
 
@@ -128,10 +130,11 @@ void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
-void		init_cam(t_cam *cam, int width);
+void		init_cam(t_cam *cam, t_map *map);
+void		pixel_color(int *color, t_matrix p0, t_matrix p1, t_data *d);
 void		print_onscreen(t_data	*d);
 void		clear_image(t_img *img);
-void		check_map_data(t_map *map);
+// void		check_map_data(t_map *map);
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		check_after_string_data(char *str, int ret, int extra);
 #endif
