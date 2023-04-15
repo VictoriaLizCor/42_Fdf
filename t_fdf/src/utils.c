@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 17:50:48 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:45:19 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,20 @@ void	init_cam(t_cam *cam, t_map *map)
 
 void	pixel_color(int *color, t_matrix p0, t_matrix p1, t_data *d)
 {
-	int	z;
+	float	t_x;
+	float	t_y;
+	float	t_z;
+	t_cam	*c;
+	int		z;
 
+	// c = (*d)->cam;
+	// t_x = (cos(c->y) * (float)map->x_width) + (sin(c->y) * map->z_max);
+	// t_z = (-sin(c->y) * t_x) + (cos(c->y) * map->z_max);
+	// t_y = (cos(1) * (float)map->y_height) - (sin(1) * t_z);
 	z = (int)0xFFFFFF - p0.rgb;
-	ft_printf("z %d\n", z);
-	*color = *color - (int)((p1.z - p0.z) / (*d).map->z_max * (int)0x556B2F);
+	color = (int)0xFFFFFF;
+	// ft_printf("z %d\n", z);
+	// *color = *color - (int)((p1.z - p0.z) / (*d).map->z_max * (int)0x556B2F);
 	// *color = *color - (int)((p1.z - p0.z) / t_z * (int)0x556B2F);
 	// ft_printf("-%d \t", (int)((p1.z - p0.z) / t_z * (int)0x556B2F));
 	// ft_printf("%d \n", (int)0xFFFFFF - ((int)(((p1.z - p0.z) / t_z))));

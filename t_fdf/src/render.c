@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 17:49:27 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:03:52 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	isometric_projection(t_matrix *m, t_cam *cam)
 	m->x = cos(cam->y) * (m->x) + sin(cam->y) * (m->z);
 	m->z = -sin(cam->y) * (m->x) + cos(cam->y) * (m->z);
 	m->y = cos(cam->x) * (m->y) - sin(cam->x) * (m->z);
-	m->z = sin(cam->x) * (m->y) + cos(cam->x) * (m->z);
+	// m->z = sin(cam->x) * (m->y) + cos(cam->x) * (m->z);
 	m->x *= cam->scale;
 	m->y *= cam->scale;
 }
@@ -44,6 +44,13 @@ t_matrix	perspective(t_matrix m, t_data *data)
 // printf("%.2f, %.2f, %.2f, %d) \n", m.y, m.x, \
 			// m.z, m.rgb);
 
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	if (x < 0 || x >= WIN_W || y < 0 || y >= WIN_H)
+		return ;
+	*(int *)(img->addr + ((x + y * img->line_length) * img->bpp)) = color;
+}
+
 void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 {
 	t_line	line;
@@ -59,15 +66,17 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 	else
 		d = fabs(line.dy);
 	line.dx = (line.dx / d);
-	line.dy = (line.dy / d);;
+	line.dy = (line.dy / d);
 	while (round(line.p1.y - line.p0.y) || round(line.p1.x - line.p0.x))
 	{
 		pxc = line.p0.rgb;
 		if (!(*data).map->color_change)
 			pixel_color(&pxc, line.p0, line.p1, data);
-		mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, pxc);
 		line.p0.x += line.dx;
 		line.p0.y += line.dy;
+		my_mlx_pixel_put(data->img, line.p0.x, line.p0.y, (int)0xFFFFFF);
+		// mlx_pixel_put(data->mlx, data->win, p0.x, p0.y, (int)0xFF00);
+		// mlx_pixel_put(data->mlx, data->win, line.p0.x, line.p0.y, pxc);
 	}
 }
 // color = (*data).map->rgb_min + (int)(line.p0.x * line.p0.y * line.p0.z);
@@ -94,6 +103,8 @@ void	render(t_data *data, int x, int y)
 		while (x < map->x_width)
 		{
 			mp = perspective(m[y * w + x], data);
+			printf("%.2f, %.2f, %.2f, %d) \n", mp.y, mp.x, \
+			mp.z, mp.rgb);
 			if (x < (map->x_width - 1))
 				draw_line(data, mp, perspective(m[y * w + (x + 1)], data));
 			if (y < (map->y_height - 1))
@@ -102,6 +113,7 @@ void	render(t_data *data, int x, int y)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	print_onscreen(data);
 }
 // printf("%.2f, %.2f, %.2f, %d) \n", m[tmp].y, m[tmp].x, \
@@ -136,6 +148,7 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
+	ft_printf("%d\n", (*data)->img->line_length);
 	// check_map_data((*data)->map);
 	init_cam((*data)->cam, (*data)->map);
 	if (!((*data)->win))

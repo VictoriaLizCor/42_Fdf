@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 17:38:46 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:45:35 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 		row[x].rgb = (int)0xFFFFFF - (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
 			row[x].rgb = int_rgb(ft_strchr(row_data[x], ',') + 3, &*map);
-		ft_printf("%d\n", row[x].rgb);
 		x++;
 	}
 }
