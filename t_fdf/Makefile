@@ -3,6 +3,7 @@ NAME = fdf
 SRCS_DIR := src/
 SRCS =	src/fdf.c			\
 		src/render.c		\
+		src/draw_line.c		\
 		src/utils.c			\
 		src/check_error.c
 

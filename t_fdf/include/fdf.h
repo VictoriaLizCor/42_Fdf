@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 17:29:25 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:18:30 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,6 @@ typedef struct s_line
 	float		dy;
 }				t_line;
 
-	// float		sx;
-	// float		sy;
-	// float		err;
-	// float		err2;
 
 typedef struct s_map
 {
@@ -125,6 +121,9 @@ int			main(int argc, char **argv);
 // void		render;
 int			init_render_data(t_data **data, char *file);
 void		render(t_data *data, int x, int y);
+/* draw_line.c */
+void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
+void		pixel_put(t_img *img, int x, int y, int color);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);

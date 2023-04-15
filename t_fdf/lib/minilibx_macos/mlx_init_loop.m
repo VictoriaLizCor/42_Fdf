@@ -7,7 +7,6 @@
 
 #include "mlx_int.h"
 #include "mlx_new_window.h"
-
 #include "font.c"
 
 
@@ -36,9 +35,6 @@ void do_loop_flush(CFRunLoopObserverRef observer, CFRunLoopActivity activity, vo
       win = win->next;
     }
 }
-
-
-
 
 void *mlx_init()
 {

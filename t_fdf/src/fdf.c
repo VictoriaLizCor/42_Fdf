@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/15 11:45:35 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:35:12 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 	int			x;
 
 	x = 0;
-	ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_width, row);
 	while (x < (*map)->x_width)
 	{
 		row[x].x = x + 1;
