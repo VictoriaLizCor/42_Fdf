@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/15 16:18:30 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:21:07 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ typedef struct s_line
 	float		dy;
 }				t_line;
 
-
 typedef struct s_map
 {
 	int			x_width;
 	int			y_height;
 	int			z_min;
 	int			z_max;
+	int			max_val;
 	int			color_change;
 	t_matrix	*matrix;
 }				t_map;
@@ -130,7 +130,7 @@ void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
 void		init_cam(t_cam *cam, t_map *map);
-void		pixel_color(int *color, t_matrix p0, t_matrix p1, t_data *d);
+void		pixel_color(int *color, t_matrix p0, t_map *m, t_cam *c);
 void		print_onscreen(t_data	*d);
 void		clear_image(t_img *img);
 // void		check_map_data(t_map *map);

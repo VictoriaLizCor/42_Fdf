@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/15 16:34:42 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:32:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	isometric_projection(t_matrix *m, t_cam *cam)
 	m->x = cos(cam->y) * (m->x) + sin(cam->y) * (m->z);
 	m->z = -sin(cam->y) * (m->x) + cos(cam->y) * (m->z);
 	m->y = cos(cam->x) * (m->y) - sin(cam->x) * (m->z);
-	// m->z = sin(cam->x) * (m->y) + cos(cam->x) * (m->z);
+	m->z = sin(cam->x) * (m->y) + cos(cam->x) * (m->z);
 	m->x *= cam->scale;
 	m->y *= cam->scale;
 }
@@ -76,6 +76,7 @@ void	render(t_data *data, int x, int y)
 			x++;
 		}
 		y++;
+		printf("%.2f | %d\n", (*data).cam->scale, (*data).map->max_val);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	print_onscreen(data);
@@ -111,7 +112,6 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
-	ft_printf("%d\n", (*data)->img->line_length);
 	init_cam((*data)->cam, (*data)->map);
 	if (!((*data)->win))
 		return (-1);
