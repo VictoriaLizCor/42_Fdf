@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:53:05 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/17 11:36:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:09:37 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 {
 	t_line	line;
 	float	denominator;
-	int		pxc;
 
 	line.p0 = p0;
 	line.p1 = p1;
@@ -46,10 +45,7 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 	line.dy = (line.dy / denominator);
 	while (denominator > 0)
 	{
-		pxc = line.p0.rgb;
-		if (!(*data).map->color_change)
-			pixel_color(&pxc, line.p0, data->map, data->cam);
-		pixel_put(data->img, line.p0.x, line.p0.y, pxc);
+		pixel_put(data->img, line.p0.x, line.p0.y, line.p0.rgb);
 		line.p0.x += line.dx;
 		line.p0.y += line.dy;
 		denominator--;

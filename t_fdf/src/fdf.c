@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/17 17:48:13 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:22:07 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)
 			(*map)->z_max = (int)row[x].z;
-		row[x].rgb = (int)0xFFFFFF - (int)row[x].z;
+		row[x].rgb = 0xFFFFFF;
 		if (ft_strchr(row_data[x], ','))
 			row[x].rgb = int_rgb(ft_strchr(row_data[x], ',') + 3, &*map);
+		printf("%d | %.2f \n", x, row[x].z);
 		x++;
 	}
 	if ((*map)->z_max >= (*map)->x_width && (*map)->z_max >= (*map)->y_height)
 		(*map)->max_val = (*map)->z_max;
 	else if ((*map)->x_width >= (*map)->y_height && \
-	(*map)->x_width >= (*map)->z_max)
+			(*map)->x_width >= (*map)->z_max)
 		(*map)->max_val = (*map)->x_width;
 	else
 		(*map)->max_val = (*map)->y_height;
@@ -140,13 +141,10 @@ int	main(int argc, char **argv)
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
 	ft_printf("read_matrix : %p\n", data->map->matrix);
-	// check_map_data(data->map);
-	// fflush(stdout);
 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \
 											data->map->x_width);
 	if (init_render_data(&data, argv[1]) == -1)
 		ft_error("MLX initialization failed.");
-	// check_map_data(data->map);
 	render(data, 0, 0);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->img);
