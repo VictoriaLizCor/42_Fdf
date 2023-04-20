@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/20 17:38:43 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:32:17 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	init_render_data(t_data **data, char *file)
 	(*data)->win = mlx_new_window((*data)->mlx, WIN_W, \
 					WIN_H, (*data)->title);
 	(*data)->mouse = (t_mouse *)ft_calloc(sizeof(t_mouse), 1);
-	(*data)->img = (t_img *)ft_calloc(sizeof(t_img), 1);
+	(*data)->img = (t_im *)ft_calloc(sizeof(t_im), 1);
 	(*data)->cam = (t_cam *)ft_calloc(sizeof(t_cam), 1);
 	ft_printf("window: \t%p\n", (*data)->win);
 	ft_printf("mouse: \t\t%p\n", (*data)->mouse);

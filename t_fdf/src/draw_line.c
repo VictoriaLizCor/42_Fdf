@@ -6,13 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:53:05 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/20 15:40:09 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:25:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	pixel_put(t_img *img, int x, int y, int color)
+void	pixel_put(t_im *img, int x, int y, int color)
 {
 	char	*dst;
 

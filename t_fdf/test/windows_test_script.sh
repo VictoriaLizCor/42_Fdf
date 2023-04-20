@@ -14,6 +14,6 @@ export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 
 
 # compile file
-cc -I /usr/include/ minilib_main.c -L.. -lmlx -L ../minilibx_linux/ -lXext -lX11 -lm -lbsd
+cc -I /usr/include/ minilib_main.c -L ../lib/minilibx_linux/ -lmlx -lXext -lX11 -lm -lbsd
 
 ./a.out

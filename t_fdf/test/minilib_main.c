@@ -6,14 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:47:25 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/24 16:32:05 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:41:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx_linux/mlx.h"
-
-#include	"../minilibx_linux/mlx_int.h"
-
+// #include "../lib/minilibx_linux/mlx.h"
+// #include	"../lib/minilibx_linux/mlx_int.h"
+#include <stdlib.h>
 // int	main(void)
 // {
 // 	void	*mlx;
