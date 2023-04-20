@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/18 14:00:46 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:35:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,18 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
+typedef struct color{
+	int		r;
+	int		g;
+	int		b;
+	int		rgb;
+}				t_color;
+
 typedef struct s_matrix{
 	float		x;
 	float		y;
 	float		z;
-	int			rgb;
+	t_color		rgb;
 }				t_matrix;
 
 typedef struct s_line
@@ -121,16 +128,20 @@ int			main(int argc, char **argv);
 /* render.c */
 // void		render;
 int			init_render_data(t_data **data, char *file);
+t_matrix	perspective(t_matrix m, t_data *data);
 void		render(t_data *data, int x, int y);
+void		find_max_values(t_data *data, t_matrix *max, int x, int y);
 /* draw_line.c */
 void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
 void		pixel_put(t_img *img, int x, int y, int color);
+/* color.c */
+void		int_rgb(t_color *rgb, char *str_color, t_map **map);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
-void		init_cam(t_cam *cam, t_map *map);
+void		init_cam(t_cam *cam, t_map *map, t_data *d);
 void		pixel_color(int *color, t_matrix p0, t_map *m, t_cam *c);
 void		print_onscreen(t_data	*d);
 void		clear_image(t_img *img);

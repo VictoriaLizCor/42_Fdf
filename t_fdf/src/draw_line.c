@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:53:05 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/18 12:09:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:40:09 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_line(t_data *data, t_matrix p0, t_matrix p1)
 	line.dy = (line.dy / denominator);
 	while (denominator > 0)
 	{
-		pixel_put(data->img, line.p0.x, line.p0.y, line.p0.rgb);
+		pixel_put(data->img, line.p0.x, line.p0.y, line.p0.rgb.rgb);
 		line.p0.x += line.dx;
 		line.p0.y += line.dy;
 		denominator--;

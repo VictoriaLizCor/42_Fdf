@@ -6,36 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/18 17:22:07 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:03:06 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
 //white = 16777215 = 0xffffff
-static int	int_rgb(char *str_color, t_map **map)
-{
-	int	int_color;
-	int	hex;
-	int	len;
-	int	i;
-
-	if ((*map)->color_change != 1)
-		(*map)->color_change = 1;
-	len = (int)ft_strlen(str_color) - 1;
-	i = len;
-	int_color = 0;
-	while (i > -1)
-	{
-		hex = str_color[i] - '0';
-		if (!ft_isdigit(str_color[i]))
-			hex = str_color[i] - 'A' + 10;
-		int_color += hex * pow(16, (len - i));
-		i--;
-	}
-	return (int_color);
-}
-
 static int	read_map(t_map **map, int fd)
 {
 	char	*row;
@@ -79,10 +56,9 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)
 			(*map)->z_max = (int)row[x].z;
-		row[x].rgb = 0xFFFFFF;
+		row[x].rgb.rgb = (int)0xFFFFFF - (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
-			row[x].rgb = int_rgb(ft_strchr(row_data[x], ',') + 3, &*map);
-		printf("%d | %.2f \n", x, row[x].z);
+			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3, &*map);
 		x++;
 	}
 	if ((*map)->z_max >= (*map)->x_width && (*map)->z_max >= (*map)->y_height)

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/18 17:06:22 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:48:21 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,26 @@ void	ft_free(void **array)
 	// cam->y = 1.55;
 // cam->x = 80.2 * (M_PI / 180);
 // 	cam->y = 23 * (M_PI / 180);
-void	init_cam(t_cam *cam, t_map *map)
+void	init_cam(t_cam *cam, t_map *map, t_data *d)
 {
-	float	t_x;
-	float	t_y;
-	float	t_z;
-	float	t_x1;
-	float	t_y1;
+	t_matrix	t1;
+	t_matrix	t2;
 
 	cam->x = 80 * (M_PI / 180);
 	cam->y = 23 * (M_PI / 180);
-	cam->z = 1;
+	cam->z = 3;
 	if (map->max_val <= 50)
 		cam->scale = (float)WIN_W / (map->max_val * 2);
-	else if (map->max_val < 60)
+	else if (map->max_val < 70)
 		cam->scale = (float)WIN_W / (map->max_val);
-	else if (map->max_val <= 200)
+	else if (map->max_val < 250)
 		cam->scale = 5 - (float)map->max_val * 0.01;
 	else
 		cam->scale = 1.5;
-	t_x = (cos(cam->x) * (float)map->max_val) + (sin(cam->x) * map->z_max);
-	t_z = (-sin(cam->x) * t_x) + (cos(cam->x) * map->z_max);
-	t_y = (cos(cam->y) * (float)map->max_val) - (sin(cam->y) * t_z);
-	t_x1 = (cos(cam->x) + sin(cam->x));
-	t_z = -sin(cam->x) * t_x1 + cos(cam->y);
-	t_y1 = cos(cam->y) - (sin(cam->y) * t_z);
-	cam->offsetx = ((float)WIN_W * 0.5) - (((t_x - t_x1) * 0.4)) * cam->scale;
-	cam->offsety = ((float)WIN_H * 0.5) - (((t_y - t_y1) * 0.4)) * cam->scale;
+	t1 = perspective(d->map->matrix[0], d);
+	find_max_values(d, &t2, 0, 0);
+	cam->offsetx = ((float)WIN_W * 0.5) - ((t2.x - t1.x) / 2);
+	cam->offsety = ((float)WIN_H * 0.4) - ((t2.y - t1.y) / 2);
 }
 
 void	pixel_color(int *color, t_matrix p0, t_map *m, t_cam *c)

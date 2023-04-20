@@ -6,31 +6,48 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/18 17:21:47 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:38:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
+void find_max_values(t_data *data, t_matrix *max, int x, int y)
+{
+	t_map		*map;
+	t_matrix	*m;
+	t_matrix	mp;
+	int			w;
+
+	map = data->map;
+	m = map->matrix;
+	w = map->x_width;
+	*max = perspective(m[0], data);
+	while (y < map->y_height)
+	{
+		x = 0;
+		while (x < map->x_width)
+		{
+			mp = perspective(m[y * w + x], data);
+			if(max->x < mp.x)
+				max->x = mp.x;
+			if(max->y < mp.y)
+				max->y = mp.y;
+			x++;
+		}
+		y++;
+	}
+}
 // m->z = sin(cam->x) * (m->y) + cos(cam->x) * (m->z);
 void	isometric_projection(t_matrix *m, t_cam *cam, int w, int h)
 {
-	// float	t_x;
-	// float	t_y;
-	// float	t_z;
-
-	
-	// t_x = cos(c->y) * (float)w + sin(c->y) * m->z_max;
-	// t_z = -sin(c->y) * t_x + cos(c->y) * m->z_max;
-	// t_y = cos(c->x) * (float)h - sin(c->x) * t_z;
-	// if ()
 	m->x = cos(cam->y) * (m->x) + sin(cam->y) * (m->z);
 	m->z = -sin(cam->y) * (m->x) + cos(cam->y) * (m->z);
 	m->y = cos(cam->x) * (m->y) - sin(cam->x) * (m->z);
 	m->x *= cam->scale;
 	m->y *= cam->scale;
-	printf("%.2f, %.2f, %.2f, %d) \n", m->y, m->x, \
-			m->z, m->rgb);
+	printf("%.2f, %.2f, %.2f) \n", m->y, m->x, \
+			m->z);
 }
 
 t_matrix	perspective(t_matrix m, t_data *data)
@@ -58,10 +75,9 @@ t_matrix	perspective(t_matrix m, t_data *data)
 	if ((*data).map->color_change == 0)
 	{
 		// ((int)(first + (second - first) * p));
-		m.rgb = m.rgb + (m.z * 1000 * 15);
+		// m.rgb = m.rgb + (m.z * 1000 * 15);
 	}
 	printf("%d \t| %d \n", (int)0x00FF00, (int)0xFFFFFF);
-	printf("rgb: %d \t| %.2f \n", m.rgb, (int)0x00FF00 * (m.z * 100));
 	isometric_projection(&m, data->cam, w, h);
 	m.x += cam->offsetx;
 	m.y += cam->offsety;
@@ -138,7 +154,7 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
-	init_cam((*data)->cam, (*data)->map);
+	init_cam((*data)->cam, (*data)->map, *data);
 	if (!((*data)->win))
 		return (-1);
 	return (0);
