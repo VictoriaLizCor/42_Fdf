@@ -6,36 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/15 16:35:12 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:03:06 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
 //white = 16777215 = 0xffffff
-static int	int_rgb(char *str_color, t_map **map)
-{
-	int	int_color;
-	int	hex;
-	int	len;
-	int	i;
-
-	if ((*map)->color_change != 1)
-		(*map)->color_change = 1;
-	len = (int)ft_strlen(str_color) - 1;
-	i = len;
-	int_color = 0;
-	while (i > -1)
-	{
-		hex = str_color[i] - '0';
-		if (!ft_isdigit(str_color[i]))
-			hex = str_color[i] - 'A' + 10;
-		int_color += hex * pow(16, (len - i));
-		i--;
-	}
-	return (int_color);
-}
-
 static int	read_map(t_map **map, int fd)
 {
 	char	*row;
@@ -79,11 +56,18 @@ static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
 			(*map)->z_min = (int)row[x].z;
 		if (row[x].z > (*map)->z_max)
 			(*map)->z_max = (int)row[x].z;
-		row[x].rgb = (int)0xFFFFFF - (int)row[x].z;
+		row[x].rgb.rgb = (int)0xFFFFFF - (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
-			row[x].rgb = int_rgb(ft_strchr(row_data[x], ',') + 3, &*map);
+			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3, &*map);
 		x++;
 	}
+	if ((*map)->z_max >= (*map)->x_width && (*map)->z_max >= (*map)->y_height)
+		(*map)->max_val = (*map)->z_max;
+	else if ((*map)->x_width >= (*map)->y_height && \
+			(*map)->x_width >= (*map)->z_max)
+		(*map)->max_val = (*map)->x_width;
+	else
+		(*map)->max_val = (*map)->y_height;
 }
 	// ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_width, row);
 		// ft_printf("%d | %d \t", x, row[x].z);
@@ -133,13 +117,10 @@ int	main(int argc, char **argv)
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
 	ft_printf("read_matrix : %p\n", data->map->matrix);
-	// check_map_data(data->map);
-	// fflush(stdout);
 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \
 											data->map->x_width);
 	if (init_render_data(&data, argv[1]) == -1)
 		ft_error("MLX initialization failed.");
-	// check_map_data(data->map);
 	render(data, 0, 0);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->img);
