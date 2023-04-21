@@ -6,13 +6,39 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/20 22:26:15 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:34:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "fdf.h"
 // #include "../include/fdf.h"
 #include <fdf.h>
+
+float	find_max(float v1, float v2, float v3)
+{
+	float	max;
+
+	if (v1 >= v2 && v1 >= v3)
+		max = v1;
+	else if (v2 >= v1 && v2 >= v3)
+		max = v2;
+	else
+		max = v3;
+	return (max);
+}
+
+float	find_min(float v1, float v2, float v3)
+{
+	float	min;
+
+	if (v1 <= v2 && v1 <= v3)
+		min = v1;
+	else if (v2 <= v1 && v2 <= v3)
+		min = v2;
+	else
+		min = v3;
+	return (min);
+}
 
 void	ft_free(void **array)
 {
@@ -33,50 +59,7 @@ void	ft_free(void **array)
 	// cam->y = 1.55;
 // cam->x = 80.2 * (M_PI / 180);
 // 	cam->y = 23 * (M_PI / 180);
-void	init_cam(t_cam *cam, t_map *map, t_data *d)
-{
-	t_matrix	t1;
-	t_matrix	t2;
 
-	cam->x = 80 * (M_PI / 180);
-	cam->y = 23 * (M_PI / 180);
-	cam->z = 3;
-	if (map->max_val <= 50)
-		cam->scale = (float)WIN_W / (map->max_val * 2);
-	else if (map->max_val < 70)
-		cam->scale = (float)WIN_W / (map->max_val);
-	else if (map->max_val < 250)
-		cam->scale = 5 - (float)map->max_val * 0.01;
-	else
-		cam->scale = 1.5;
-	t1 = perspective(d->map->matrix[0], d);
-	find_max_values(d, &t2, 0, 0);
-	cam->offsetx = ((float)WIN_W * 0.5) - ((t2.x - t1.x) / 2);
-	cam->offsety = ((float)WIN_H * 0.4) - ((t2.y - t1.y) / 2);
-}
-
-void	pixel_color(int *color, t_matrix p0, t_map *m, t_cam *c)
-{
-	float	t_x;
-	float	t_y;
-	float	t_z;
-
-	t_x = cos(c->y) * (float)m->max_val + sin(c->y) * m->z_max;
-	t_z = -sin(c->y) * t_x + cos(c->y) * m->z_max;
-	t_y = cos(c->x) * (float)m->max_val - sin(c->x) * t_z;
-	t_x = (t_x * c->scale) + c->offsetx;
-	t_y = (t_y * c->scale) + c->offsety;
-	*color = 0x00FFFF;
-	// printf("x = %.2f | y = %.2f\n", c->x * (180 / 3.1416), c->y * (180 /3.1416));
-	// // *color = ((int)(p0.z / t_z * 1000)) * (int)0x556B2F;
-	// // ft_printf(" %d \t | %d\n", (int)0x556B2F, (int)(p0.z / t_z) * (int)0x556B2F);
-	// ft_printf("%d \n", (int)0xFFFFFF - ((int)(((p1.z - p0.z) / t_z))));
-	// *color = (int)0xFFFFFF - ((int)((p.z / t_z)));
-}
-
-	// printf("x_max = %.2f | x0 = %.2f | p = %.2f\n", t_x, p0.x, p0.x / t_x);
-	// printf("y_max = %.2f | y0 = %.2f | p = %.2f\n", t_y, p0.y, p0.y / t_y);
-	// printf("z_max = %.2f | z0 = %.2f | p = %.2f\n", t_z, p0.z, p0.z / t_z);
 void	print_onscreen(t_data	*d)
 {
 	char	*txt;

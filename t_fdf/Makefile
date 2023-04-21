@@ -47,7 +47,7 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc -c $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS)  $< -o $@
+	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $@

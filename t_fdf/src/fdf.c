@@ -6,13 +6,47 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/20 16:03:06 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:32:29 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
 //white = 16777215 = 0xffffff
+int	init_render_data(t_data **data, char *file)
+{
+	ft_printf("map: \t\t%p\n", (*data)->map);
+	ft_printf("*matrix: \t%p\n", (*data)->map->matrix);
+	(*data)->title = ft_strjoin("42 Fdf | ", file);
+	(*data)->mlx = mlx_init();
+	if (!((*data)->mlx))
+		return (-1);
+	ft_printf("mlx : \t\t%p\n", (*data)->mlx);
+	(*data)->win = mlx_new_window((*data)->mlx, WIN_W, \
+					WIN_H, (*data)->title);
+	(*data)->mouse = (t_mouse *)ft_calloc(sizeof(t_mouse), 1);
+	(*data)->img = (t_im *)ft_calloc(sizeof(t_im), 1);
+	(*data)->cam = (t_cam *)ft_calloc(sizeof(t_cam), 1);
+	ft_printf("window: \t%p\n", (*data)->win);
+	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
+	ft_printf("img: \t\t%p\n", (*data)->img);
+	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
+	if (!((*data)->mouse) || !((*data)->img) || !((*data)->win))
+		return (-1);
+	(*data)->img->img = mlx_new_image((*data)->mlx, WIN_W, WIN_H);
+	(*data)->img->addr = mlx_get_data_addr((*data)->img->img, \
+		&(*data)->img->bpp, &(*data)->img->line_length, &(*data)->img->endian);
+	(*data)->img->bpp /= 8;
+	ft_printf("window: \t%p\n", (*data)->win);
+	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
+	ft_printf("img: \t\t%p\n", (*data)->img);
+	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
+	init_cam((*data)->cam, (*data)->map, *data);
+	if (!((*data)->win))
+		return (-1);
+	return (0);
+}
+
 static int	read_map(t_map **map, int fd)
 {
 	char	*row;
@@ -42,32 +76,30 @@ static int	read_map(t_map **map, int fd)
 	return (close(fd));
 }
 
-static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data)
+static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 {
 	int			x;
 
 	x = 0;
-	while (x < (*map)->x_width)
+	while (x < (*m)->x_width)
 	{
 		row[x].x = x + 1;
 		row[x].y = y;
 		row[x].z = (float)ft_atoi(row_data[x]);
-		if (row[x].z < (*map)->z_min)
-			(*map)->z_min = (int)row[x].z;
-		if (row[x].z > (*map)->z_max)
-			(*map)->z_max = (int)row[x].z;
+		if (row[x].z < (*m)->z_min)
+			(*m)->z_min = (int)row[x].z;
+		if (row[x].z > (*m)->z_max)
+			(*m)->z_max = (int)row[x].z;
 		row[x].rgb.rgb = (int)0xFFFFFF - (int)row[x].z;
 		if (ft_strchr(row_data[x], ','))
-			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3, &*map);
+		{
+			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3);
+			(*m)->color_change = 1;
+		}
 		x++;
 	}
-	if ((*map)->z_max >= (*map)->x_width && (*map)->z_max >= (*map)->y_height)
-		(*map)->max_val = (*map)->z_max;
-	else if ((*map)->x_width >= (*map)->y_height && \
-			(*map)->x_width >= (*map)->z_max)
-		(*map)->max_val = (*map)->x_width;
-	else
-		(*map)->max_val = (*map)->y_height;
+	(*m)->max_val = find_max((float)(*m)->x_width, \
+	(float)(*m)->y_height, (float)(*m)->z_max);
 }
 	// ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_width, row);
 		// ft_printf("%d | %d \t", x, row[x].z);
