@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "fdf.h"
+#include <stdio.h>
 
 void		fill_colors(t_map *m)
 {
@@ -37,12 +38,15 @@ t_vector	project_vector(t_vector v, t_mlx *mlx)
 {
 	v.x -= (double)(mlx->map->width - 1) / 2.0f;
 	v.y -= (double)(mlx->map->height - 1) / 2.0f;
+	// v.z -= ((double)(v.z - mlx->map->depth_min) / (double)(mlx->map->depth_max - mlx->map->depth_min)) / 2.0f;
 	v.z -= (double)(mlx->map->depth_min + mlx->map->depth_max) / 2.0f;
 	v = rotate(v, mlx->cam);
 	v.x *= mlx->cam->scale;
 	v.y *= mlx->cam->scale;
 	v.x += mlx->cam->offsetx;
 	v.y += mlx->cam->offsety;
+	// printf("%.2f, %.2f, %.2f, %d) \n", v.y, v.x, \
+	// 		v.z, v.color);
 	return (v);
 }
 

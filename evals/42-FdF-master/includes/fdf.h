@@ -14,7 +14,7 @@
 # define FDF_H
 # define WIN_WIDTH			1280
 # define WIN_HEIGHT			720
-
+# include <stdio.h>
 typedef struct		s_cam
 {
 	double		offsetx;
@@ -52,7 +52,7 @@ typedef struct		s_image
 	void		*image;
 	char		*ptr;
 	int			bpp;
-	int			stride;
+	
 	int			endian;
 }					t_image;
 typedef struct		s_mlx

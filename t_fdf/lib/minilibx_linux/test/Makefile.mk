@@ -1,8 +1,9 @@
 
 INC=%%%%
 
-INCLIB=$(INC)/../lib
-
+INCLIB=$(INC)/
+INCLIB=$(INC)/
+#INCLIB=$(INC)/../lib
 UNAME := $(shell uname)
 
 CFLAGS= -I$(INC) -O3 -I.. -g

@@ -13,7 +13,7 @@
 #include "mlx.h"
 #include "fdf.h"
 #include "libft.h"
-#include <stdio.h>
+
 
 int			clerp(int c1, int c2, double p)
 {
@@ -102,5 +102,6 @@ void		render(t_mlx *mlx)
 		}
 		x++;
 	}
+	printf("%0.2f | %0.2f | %d\n", mlx->cam->x, mlx->cam->y, mlx->cam->scale);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
 }

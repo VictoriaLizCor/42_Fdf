@@ -21,17 +21,19 @@ LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CINCLUDES += -I $(LIBFT_DIR)
 #sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
 ifeq ($(shell uname), Linux)
+	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 	MLX_DIR = lib/minilibx_linux/
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -I/usr/include  -O3 -lXext -lX11 -lm -lm -lz
+	MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
+	CINCLUDES += -I /usr/include/
 endif
 ifeq ($(shell uname), Darwin)
 	MLX_DIR = lib/minilibx_macos/
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
-
+# cc -I /usr/include/ minilib_main.c -L.. -lmlx -L ../minilibx_linux/ -lXext -lX11 -lm -lbsd
 MLX = $(MLX_DIR)libmlx.a
 # MLX_FILE = $(MLX_DIR)libmlx.a
-CINCLUDES += -I$(MLX_DIR)
+CINCLUDES += -I $(MLX_DIR)
 
 all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
@@ -45,7 +47,7 @@ $(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc -g -c $(CFLAGS) $(CINCLUDES) $< -o $@
+	cc -c $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS)  $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $@

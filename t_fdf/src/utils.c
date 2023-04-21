@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/20 17:48:21 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:26:15 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	print_onscreen(t_data	*d)
 	free(txt);
 }
 
-void	clear_image(t_img *img)
+void	clear_image(t_im *img)
 {
 	ft_bzero(img->addr, WIN_W * WIN_H * img->bpp);
 }
