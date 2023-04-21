@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 12:13:28 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:39:30 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,30 @@ static	void	isometric_projection(t_matrix *m, t_cam *cam)
 
 t_matrix	perspective(t_matrix m, t_data *data)
 {
-	int		w;
-	int		h;
 	t_cam	*cam;
 	t_map	*map;
+	t_color	c1;
+	t_color	c2;
 
 	map = data->map;
 	cam = data->cam;
-	w = map->x_width;
-	h = map->y_height;
-	m.x -= ((m.x - 1.0) / (w - 1.0)) / w;
-	m.y -= ((m.y - 1.0) / (h - 1.0)) / h;
-	// printf("\nx: %d |%.2f\n", w, m.x);
-	// printf("y: %d | %.2f\n", h, m.y);
-	// printf("before: %.2f | %.2f \n", m.z, m.z / map->z_max);
+	m.x -= ((m.x - 1.0) / (map->x_width - 1.0)) / map->x_width;
+	m.y -= ((m.y - 1.0) / (map->y_height - 1.0)) / map->y_height;
+	printf("\nbefore: %.2f | %.2f \n", m.z, m.z / map->z_max);
 	// printf("**z: %d | %d | %.2f\n", map->z_min, map->z_max, m.z);
 	// printf("rgb->intrgb : %d\n", m.rgb.rgb);
+	int_rgb(&c1, "0000FF");
 	// printf("rgb->r : %d\n", m.rgb.r);
 	// printf("rgb->g : %d\n", m.rgb.g);
 	// printf("rgb->b : %d\n", m.rgb.b);
 	// printf("rgb->h : %d\n", m.rgb.h);
+	printf("c1: r: %d| g: %d | b: %.d \t ", c1.r, c1.g, c1.b);
+	printf("c1: h:  %.2f | s : %.2f | l: %.2f \n", c1.h, c1.s, c1.l);
+	int_rgb(&c2, "FF0000");
+	// printf("c1: r: %d| g: %d | b: %d \n", c2.r, c2.g, c2.b);
+	// printf("c1: h:  %.2f | s : %.2f | l: %.2f \n", c2.h, c2.s, c2.l);
 	if ((*data).map->color_change == 0)
-	{
-		
-	}
+		lerp(&c1, &c2, &m.rgb, m.z / map->z_max);
 	if (map->z_max - map->z_min == 0)
 		m.z = 0;
 	else

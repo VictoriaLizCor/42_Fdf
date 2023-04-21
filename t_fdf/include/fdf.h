@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 14:22:08 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:25:27 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ typedef struct color{
 	int		r;
 	int		g;
 	int		b;
-	int		h;
-	int		l;
-	int		s;
+	float	h;
+	float	l;
+	float	s;
 	int		rgb;
 }				t_color;
 
@@ -140,6 +140,8 @@ void		find_max_values(t_data *data, t_matrix *max, int x, int y);
 void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
 void		pixel_put(t_im *img, int x, int y, int color);
 /* color.c */
+void		lerp(t_color *c1, t_color *c2, t_color *r, float t)
+;
 void		int_rgb(t_color *rgb, char *str_color);
 void		get_hsl(t_color *c);
 /* check_error.c */
@@ -147,7 +149,6 @@ void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
-void		pixel_color(int *color, t_matrix p0, t_map *m, t_cam *c);
 void		print_onscreen(t_data	*d);
 void		clear_image(t_im *img);
 float		find_max(float v1, float v2, float v3);
