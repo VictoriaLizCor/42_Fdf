@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 12:32:29 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/22 11:26:56 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	read_map(t_map **map, int fd)
 
 static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 {
-	int			x;
+	int	x;
 
 	x = 0;
 	while (x < (*m)->x_width)
@@ -90,7 +90,7 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 			(*m)->z_min = (int)row[x].z;
 		if (row[x].z > (*m)->z_max)
 			(*m)->z_max = (int)row[x].z;
-		row[x].rgb.rgb = (int)0xFFFFFF - (int)row[x].z;
+		row[x].rgb.rgb = (int)0xFFFFFF;
 		if (ft_strchr(row_data[x], ','))
 		{
 			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3);

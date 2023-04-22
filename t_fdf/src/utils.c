@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 12:34:44 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/22 11:41:41 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ void	print_onscreen(t_data	*d)
 	free(txt);
 }
 
-void	clear_image(t_im *img)
+void	clear_image(t_im *img, t_map **m)
 {
+	if ((*m)->color_change == 0)
+	{
+		int_rgb(&(*m)->c1, "0000FF");
+		int_rgb(&(*m)->c2, "FF0000");
+	}
 	ft_bzero(img->addr, WIN_W * WIN_H * img->bpp);
 }
 

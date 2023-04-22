@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 17:25:27 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:12:20 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_matrix{
 	float		x;
 	float		y;
 	float		z;
+	float		p;
 	t_color		rgb;
 }				t_matrix;
 
@@ -109,6 +110,8 @@ typedef struct s_map
 	int			z_max;
 	int			max_val;
 	int			color_change;
+	t_color		c1;
+	t_color		c2;
 	t_matrix	*matrix;
 }				t_map;
 
@@ -140,8 +143,8 @@ void		find_max_values(t_data *data, t_matrix *max, int x, int y);
 void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
 void		pixel_put(t_im *img, int x, int y, int color);
 /* color.c */
-void		lerp(t_color *c1, t_color *c2, t_color *r, float t)
-;
+void		lerp(t_color *c1, t_color *c2, t_color *r, float t);
+void		hsl_rgb(t_color *c);
 void		int_rgb(t_color *rgb, char *str_color);
 void		get_hsl(t_color *c);
 /* check_error.c */
@@ -150,7 +153,7 @@ void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
 void		print_onscreen(t_data	*d);
-void		clear_image(t_im *img);
+void		clear_image(t_im *img, t_map **m);
 float		find_max(float v1, float v2, float v3);
 float		find_min(float v1, float v2, float v3);
 // void		check_map_data(t_map *map);

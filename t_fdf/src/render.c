@@ -6,13 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/21 17:39:30 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:20:37 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void find_max_values(t_data *data, t_matrix *max, int x, int y)
+void	find_max_values(t_data *data, t_matrix *max, int x, int y)
 {
 	t_map		*map;
 	t_matrix	*m;
@@ -29,9 +29,9 @@ void find_max_values(t_data *data, t_matrix *max, int x, int y)
 		while (x < map->x_width)
 		{
 			mp = perspective(m[y * w + x], data);
-			if(max->x < mp.x)
+			if (max->x < mp.x)
 				max->x = mp.x;
-			if(max->y < mp.y)
+			if (max->y < mp.y)
 				max->y = mp.y;
 			x++;
 		}
@@ -47,41 +47,36 @@ static	void	isometric_projection(t_matrix *m, t_cam *cam)
 	m->y = cos(cam->x) * (m->y) - sin(cam->x) * (m->z);
 	m->x *= cam->scale;
 	m->y *= cam->scale;
+}
 	// printf("%.2f, %.2f, %.2f) \n", m->y, m->x, \
 	// 		m->z);
-}
 
+	// printf("**z: %d | %d | %.2f\n", map->z_min, map->z_max, m.z);
+	// printf("rgb->intrgb : %d\n", m.rgb.rgb);
+	// printf("rgb->r : %d\n", m.rgb.r);
+	// printf("rgb->g : %d\n", m.rgb.g);
+	// printf("rgb->b : %d\n", m.rgb.b);
+	// printf("rgb->h : %d\n", m.rgb.h);	
 t_matrix	perspective(t_matrix m, t_data *data)
 {
 	t_cam	*cam;
 	t_map	*map;
-	t_color	c1;
-	t_color	c2;
+	float	t_z;
 
 	map = data->map;
 	cam = data->cam;
 	m.x -= ((m.x - 1.0) / (map->x_width - 1.0)) / map->x_width;
 	m.y -= ((m.y - 1.0) / (map->y_height - 1.0)) / map->y_height;
-	printf("\nbefore: %.2f | %.2f \n", m.z, m.z / map->z_max);
-	// printf("**z: %d | %d | %.2f\n", map->z_min, map->z_max, m.z);
-	// printf("rgb->intrgb : %d\n", m.rgb.rgb);
-	int_rgb(&c1, "0000FF");
-	// printf("rgb->r : %d\n", m.rgb.r);
-	// printf("rgb->g : %d\n", m.rgb.g);
-	// printf("rgb->b : %d\n", m.rgb.b);
-	// printf("rgb->h : %d\n", m.rgb.h);
-	printf("c1: r: %d| g: %d | b: %.d \t ", c1.r, c1.g, c1.b);
-	printf("c1: h:  %.2f | s : %.2f | l: %.2f \n", c1.h, c1.s, c1.l);
-	int_rgb(&c2, "FF0000");
-	// printf("c1: r: %d| g: %d | b: %d \n", c2.r, c2.g, c2.b);
-	// printf("c1: h:  %.2f | s : %.2f | l: %.2f \n", c2.h, c2.s, c2.l);
-	if ((*data).map->color_change == 0)
-		lerp(&c1, &c2, &m.rgb, m.z / map->z_max);
+	t_z = m.z;
 	if (map->z_max - map->z_min == 0)
-		m.z = 0;
+		t_z = 0;
 	else
-		m.z = ((m.z - (float)map->z_min) / (float)(map->z_max - map->z_min)) * \
-				cam->z;
+	{
+		m.z = ((t_z - (float)map->z_min) / \
+				(float)(map->z_max - map->z_min)) * cam->z;
+	}
+	m.p = t_z / map->z_max;
+	printf("val of z: %.2f | z/max_z:  %.2f\n", t_z, m.p);
 	isometric_projection(&m, data->cam);
 	m.x += cam->offsetx;
 	m.y += cam->offsety;
@@ -89,7 +84,15 @@ t_matrix	perspective(t_matrix m, t_data *data)
 }
 // printf("%.2f, %.2f, %.2f, %d) \n", m.y, m.x, \
 			// m.z, m.rgb);
-
+	// if ((*data).map->color_change == 0)
+	// {
+	// 	printf("\nc1: r: %d| g: %d | b: %.d \t ", map->c1.r, map->c1.g, map->c1.b);
+	// 	printf("c1: h:  %.2f | s : %.2f | l: %.2f \n", map->c1.h, map->c1.s, map->c1.l);
+	// 	printf("c2: r: %d| g: %d | b: %d \t", map->c2.r, map->c2.g, map->c2.b);
+	// 	printf("c2: h:  %.2f | s : %.2f | l: %.2f \n", map->c2.h, map->c2.s, map->c2.l);
+	// 	lerp(&map->c1, &map->c2, &m.rgb, m.z / map->z_max);
+	// 	printf("lerp_r:\t h:  %.2f | s : %.2f | l: %.2f \n", m.rgb.h, m.rgb.s, m.rgb.l);
+	// }
 void	render(t_data *data, int x, int y)
 {
 	t_map		*map;
@@ -100,7 +103,7 @@ void	render(t_data *data, int x, int y)
 	map = data->map;
 	m = map->matrix;
 	w = map->x_width;
-	clear_image(data->img);
+	clear_image(data->img, &data->map);
 	while (y < map->y_height)
 	{
 		x = 0;
