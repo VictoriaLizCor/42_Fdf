@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 15:37:02 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/22 12:59:20 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:59:55 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	hsl_rgb(t_color *c)
 	n = c->s * c->l;
 	m = c->l - n;
 	x = n * (1 - fabs(fmod(c->h / 60.0, 2) - 1));
-	printf("cmx: h:  %.2f | s : %.2f | l: %.2f\n", n, m, x);
 	if (c->h >= 0 && c->h < 60)
 		h_rgb(n, x, 0, &tmp);
 	else if (c->h >= 60 && c->h < 120)
@@ -45,35 +44,30 @@ void	hsl_rgb(t_color *c)
 	c->r = (255 * (tmp.h + m));
 	c->g = (255 * (tmp.s + m));
 	c->b = (255 * (tmp.l + m));
-	c->rgb = ((c->r & 0x0FF) << 16) | ((c->g & 0x0FF) << 8) | ( c->b & 0x0FF);
-	printf("-hsl_rgb: %d | %d | %d | %d\n", c->r, c->g, c->b, c->rgb);
+	c->rgb = ((c->r & 0x0FF) << 16) | ((c->g & 0x0FF) << 8) | (c->b & 0x0FF);
 }
+// printf("hsl_rgb: %d | %d | %d | %d\n", c->r, c->g, c->b, c->rgb);
 
-void	lerp(t_color *c1, t_color *c2, t_color *r, float t)
+void	lerp(t_color c1, t_color c2, t_color *r, float t)
 {
 	float	t_h;
 	float	d;
 
-	d = c2->h - c1->h;
-	if (c1->h > c2->h)
+	d = c2.h - c1.h;
+	if (c1.h > c2.h)
 	{
-		t_h = c2->h;
-		c2->h = c1->h;
-		c1->h = t_h;
+		t_h = c2.h;
+		c2.h = c1.h;
+		c1.h = t_h;
 		d = -d;
 		t = 1 - t;
 	}
-	if (d > 0.5)
-	{
-		c1->h = c1->h + 1;
-		r->h = round(c1->h + (c2->h - c1->h) * t);
-	}
-	else
-		r->h = round(c1->h + d * t);
-	r->s = c1->s + (c2->s - c1->s) * t;
-	r->l = c1->l + (c2->l - c1->l) * t;
+	r->h = fabs(c1.h + d * t);
+	r->s = c1.s + fabs((c2.s - c1.s) * t);
+	r->l = c1.l + fabs((c2.l - c1.l) * t);
 	hsl_rgb(r);
 }
+// printf("r: h:  %.2f | s : %.2f | l: %.2f | d: %.2f\n", r->h, r->s, r->l, d);
 
 void	get_hsl(t_color *c)
 {
@@ -83,8 +77,6 @@ void	get_hsl(t_color *c)
 
 	min = find_min((float)c->r / 255, (float)c->g / 255, (float)c->b / 255);
 	max = find_max((float)c->r / 255, (float)c->g / 255, (float)c->b / 255);
-	printf("gethsl\trgb/255: %.2f | %.2f | %.2f\n", (float)c->r / 255, \
-	(float)c->g / 255, (float)c->b / 255);
 	if (min == max)
 		return ;
 	hue = 0;
@@ -103,7 +95,6 @@ void	get_hsl(t_color *c)
 	if (hue < 0)
 		hue = hue + 360;
 	c->h = round(hue);
-	printf("gethsl\thsl: %.2f | %.2f | %.2f\n", c->h, c->s, c->l);
 }
 
 void	int_rgb(t_color *rgb, char *str_color)
@@ -126,7 +117,5 @@ void	int_rgb(t_color *rgb, char *str_color)
 	rgb->r = ((rgb->rgb >> 16) & 0xFF);
 	rgb->g = ((rgb->rgb >> 8) & 0xFF);
 	rgb->b = (rgb->rgb & 0xFF);
-	printf("int_rgb: %d | %d | %d | int: %d\n", rgb->r, rgb->g, rgb->b, rgb->rgb);
 	get_hsl(rgb);
 }
-

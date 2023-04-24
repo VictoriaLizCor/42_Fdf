@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/22 11:26:56 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:16:02 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	init_render_data(t_data **data, char *file)
 	ft_printf("img: \t\t%p\n", (*data)->img);
 	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
 	init_cam((*data)->cam, (*data)->map, *data);
+	init_colors(&(*data)->map, 0, 0);
 	if (!((*data)->win))
 		return (-1);
 	return (0);
@@ -65,11 +66,11 @@ static int	read_map(t_map **map, int fd)
 		if (!row)
 			break ;
 		row_data = ft_split(row, ' ');
-		(*map)->y_height++;
+		(*map)->y_max++;
 		get_map_size(row_data, &tmp_x);
-		if (tmp_x != (*map)->x_width && (*map)->x_width)
+		if (tmp_x != (*map)->x_max && (*map)->x_max)
 			ft_error("Invalid map size");
-		(*map)->x_width = tmp_x;
+		(*map)->x_max = tmp_x;
 		ft_free((void *)row_data);
 		free(row);
 	}
@@ -81,7 +82,7 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 	int	x;
 
 	x = 0;
-	while (x < (*m)->x_width)
+	while (x < (*m)->x_max)
 	{
 		row[x].x = x + 1;
 		row[x].y = y;
@@ -98,10 +99,10 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 		}
 		x++;
 	}
-	(*m)->max_val = find_max((float)(*m)->x_width, \
-	(float)(*m)->y_height, (float)(*m)->z_max);
+	(*m)->max_val = find_max((float)(*m)->x_max, \
+	(float)(*m)->y_max, (float)(*m)->z_max);
 }
-	// ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_width, row);
+	// ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_max, row);
 		// ft_printf("%d | %d \t", x, row[x].z);
 	// printf("%d | %d \n", x, row[x].z);
 
@@ -112,19 +113,19 @@ static int	get_map_data(t_map **map, int fd, int y)
 
 	if (fd < 0 || !*map)
 		return (-1);
-	if ((*map)->y_height < 1 || (*map)->x_width < 2)
+	if ((*map)->y_max < 1 || (*map)->x_max < 2)
 		ft_error("Empty map");
 	(*map)->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), \
-				(*map)->y_height * (*map)->x_width);
+				(*map)->y_max * (*map)->x_max);
 	if (!(*map)->matrix)
 		ft_error("Unable to allocate data matrix");
 	(*map)->z_min = INT_MAX;
 	(*map)->z_max = INT_MIN;
-	while (y < (*map)->y_height)
+	while (y < (*map)->y_max)
 	{
 		row = get_next_line(fd);
 		row_data = ft_split(row, ' ');
-		fill_matrix(&(*map)->matrix[y * (*map)->x_width], \
+		fill_matrix(&(*map)->matrix[y * (*map)->x_max], \
 					&*map, y + 1, row_data);
 		ft_free((void *)row_data);
 		free(row);
@@ -149,8 +150,8 @@ int	main(int argc, char **argv)
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
 	ft_printf("read_matrix : %p\n", data->map->matrix);
-	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_height, \
-											data->map->x_width);
+	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_max, \
+											data->map->x_max);
 	if (init_render_data(&data, argv[1]) == -1)
 		ft_error("MLX initialization failed.");
 	render(data, 0, 0);
