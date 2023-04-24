@@ -6,12 +6,17 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/27 14:08:51 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:25:20 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../xml/minilibx_macos/mlx.h"
-#include "../lib/libft/libft.h"
+#ifdef __APPLE__
+# include "mlx.h"
+#else
+# include "mlx.h"
+# include "mlx_int.h"
+#endif
+#include "libft.h"
 
 typedef struct	s_data {
 	void	*img;

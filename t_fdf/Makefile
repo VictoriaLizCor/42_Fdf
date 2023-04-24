@@ -21,7 +21,6 @@ LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CINCLUDES += -I $(LIBFT_DIR)
 #sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
 ifeq ($(shell uname), Linux)
-	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 	MLX_DIR = lib/minilibx_linux/
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
 	CINCLUDES += -I /usr/include/
@@ -39,8 +38,9 @@ all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
 $(NAME): $(HEADER) $(OBJS)
 	@echo $(GREEN)
-	cc -g $(CFLAGS) $(CINCLUDES) $(OBJS) -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	cc -g $(CFLAGS) $(CINCLUDES) $^ -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	$(BANNER_FDF)
+
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
 # $(MLX_FLAGS) $(LIBFT_FLAGS)
@@ -59,6 +59,12 @@ $(MLX):
 $(LIBFT):
 	@echo $(BLUE)
 	@make -C $(LIBFT_DIR)
+
+display :
+	$(shell export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0)
+
+install:
+	$(shell sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev)
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 

@@ -6,11 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/22 20:55:37 by lilizarr         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/24 17:16:24 by lilizarr         ###   ########.fr       */
->>>>>>> 346389c394b8a0df6ec204e3d572e5a489663539
+/*   Updated: 2023/04/24 21:36:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +26,10 @@
 # include <limits.h>
 
 # ifdef __APPLE__
-#  include "../lib/minilibx_macos/mlx.h"
+#  include "mlx.h"
 # else
-#  include "../lib/minilibx_linux/mlx.h"
-#  include "../lib/minilibx_linux/mlx_int.h"
+#  include "mlx.h"
+#  include "mlx_int.h"
 # endif
 // # elif defined _WIN32 || defined _WIN64
 //     #include <GL\glut.h>
@@ -49,6 +45,10 @@
 
 # ifndef WIN_H
 #  define WIN_H 920
+# endif
+
+# ifndef M_PI
+#  define M_PI 3.14159265358
 # endif
 
 typedef struct s_cam
@@ -133,7 +133,7 @@ typedef struct s_data{
 // static int	read_map(t_map **map, int fd);
 // static void	fill_matrix(t_matrix *row, t_map **map, int y, char **row_data);
 // static int	get_map_data(t_map **map, int fd, int y);
-int			main(int argc, char **argv);
+// int			main(int argc, char **argv);
 int			init_render_data(t_data **data, char *file);
 /* render.c */
 // void		render;
