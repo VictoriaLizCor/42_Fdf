@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/22 13:12:20 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:55:37 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <stdio.h>
 # include <limits.h>
 
-# include "fdf.h"
 # ifdef __APPLE__
 #  include "../lib/minilibx_macos/mlx.h"
 # else

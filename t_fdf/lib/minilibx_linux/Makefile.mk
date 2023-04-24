@@ -10,7 +10,7 @@
 
 ## Please use configure script
 
-
+RED = "\033[0;1;91m"
 INC	=%%%%
 
 UNAME = $(shell uname)
@@ -42,14 +42,15 @@ all	: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
+	@echo $(RED)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJ)
 	ar -r $(NAME) $(OBJ)
 	ranlib $(NAME)
-	cp $(NAME) $(NAME_UNAME)
 
 check: all
+	@echo $(RED)
 	@test/run_tests.sh
 
 show:

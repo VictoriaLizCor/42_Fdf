@@ -28,7 +28,7 @@ ifeq ($(shell uname), Linux)
 endif
 ifeq ($(shell uname), Darwin)
 	MLX_DIR = lib/minilibx_macos/
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS = -L.. -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 # cc -I /usr/include/ minilib_main.c -L.. -lmlx -L ../minilibx_linux/ -lXext -lX11 -lm -lbsd
 MLX = $(MLX_DIR)libmlx.a
@@ -37,17 +37,17 @@ CINCLUDES += -I $(MLX_DIR)
 
 all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
-$(NAME): $(OBJS) $(HEADER) | $(OBJS_DIR)
+$(NAME): $(HEADER) $(OBJS)
 	@echo $(GREEN)
-	cc -g $(CFLAGS) $(CINCLUDES) $(MLX_FLAGS) $(LIBFT_FLAGS) $(OBJS) -o $@ $(LIBFT) $(MLX) 
+	cc -g $(CFLAGS) $(CINCLUDES) $(OBJS) -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	$(BANNER_FDF)
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
 # $(MLX_FLAGS) $(LIBFT_FLAGS)
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER) | $(OBJS_DIR)
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
 	@echo $(GREEN)
-	cc -c $(CFLAGS) $(CINCLUDES) $< -o $@
+	cc $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $@

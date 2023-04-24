@@ -1,4 +1,4 @@
-
+RED = "\033[0;1;91m"
 INC=%%%%
 
 INCLIB=$(INC)/
@@ -29,6 +29,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo $(RED)
 	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:

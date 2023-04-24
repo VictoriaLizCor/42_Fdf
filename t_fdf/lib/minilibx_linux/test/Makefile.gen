@@ -1,9 +1,9 @@
 INC=/usr/include
-
+RED = "\033[0;1;91m"
 
 INCLIB=$(INC)/
+INCLIB=$(INC)/
 #INCLIB=$(INC)/../lib
-
 UNAME := $(shell uname)
 
 CFLAGS= -I$(INC) -O3 -I.. -g
@@ -29,6 +29,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo $(RED)
 	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:
