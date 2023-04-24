@@ -41,6 +41,7 @@ $(NAME): $(HEADER) $(OBJS)
 	cc -g $(CFLAGS) $(CINCLUDES) $^ -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	$(BANNER_FDF)
 
+
  #$(LIBFT) $(MLX)
 # $(LIBFT_DIR)$(LIBFT) $(MLX_DIR)$(MLX) re
 # $(MLX_FLAGS) $(LIBFT_FLAGS)
@@ -48,6 +49,7 @@ $(NAME): $(HEADER) $(OBJS)
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
 	@echo $(GREEN)
 	cc $(CFLAGS) $(CINCLUDES) -c $< -o $@
+	
 
 $(OBJS_DIR):
 	@mkdir -p $@
@@ -61,7 +63,7 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 display :
-	$(shell export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0)
+	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 
 install:
 	$(shell sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev)
@@ -85,7 +87,7 @@ fclean:	clean
 
 re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: clean fclean re display
 
 define IMG
 
