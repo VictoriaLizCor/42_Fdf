@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/22 11:41:41 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:10:53 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,8 @@ void	print_onscreen(t_data	*d)
 	free(txt);
 }
 
-void	clear_image(t_im *img, t_map **m)
+void	clear_image(t_im *img)
 {
-	if ((*m)->color_change == 0)
-	{
-		int_rgb(&(*m)->c1, "0000FF");
-		int_rgb(&(*m)->c2, "FF0000");
-	}
 	ft_bzero(img->addr, WIN_W * WIN_H * img->bpp);
 }
 
@@ -89,12 +84,12 @@ void	clear_image(t_im *img, t_map **m)
 // 	row = 0;
 // 	m = map->matrix;
 // 	printf("%p\n", m);
-// 	while (row < map->y_height)
+// 	while (row < map->y_max)
 // 	{
 // 		col = 0;
-// 		while (col < map->x_width)
+// 		while (col < map->x_max)
 // 		{
-// 			tmp = (row * map->x_width) + col;
+// 			tmp = (row * map->x_max) + col;
 // 			printf("temp %d | (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, m[tmp].y, \
 // 			m[tmp].x, m[tmp].z, m[tmp].rgb, &m[tmp]);
 // 			col++;
@@ -103,13 +98,13 @@ void	clear_image(t_im *img, t_map **m)
 // 		printf("\n");
 // 	}
 // }
-	// while(row < map->y_height * map->x_width)
+	// while(row < map->y_max * map->x_max)
 	// {
 	// 	ft_printf("(%d, %d, %d, %d) \t %p\n", m[row].y, m[row].x, \
 	// 		m[row].z, m[row].rgb, &m[row]);
 	// 	row++;
 	// }
-	// tmp = (row * map->x_width) + col;
+	// tmp = (row * map->x_max) + col;
 	// 		printf("temp %d |   (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, (m+tmp)->y, (m + tmp)->x, \
 	// 		(m+tmp)->z, (m+tmp)->rgb, *(m+tmp));
 	// 		col++;

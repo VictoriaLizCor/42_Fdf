@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/22 13:12:20 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:16:24 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,14 @@ typedef struct s_matrix{
 typedef struct s_line
 {
 	t_matrix	p0;
-	t_matrix	p1;
 	float		dx;
 	float		dy;
 }				t_line;
 
 typedef struct s_map
 {
-	int			x_width;
-	int			y_height;
+	int			x_max;
+	int			y_max;
 	int			z_min;
 	int			z_max;
 	int			max_val;
@@ -135,15 +134,16 @@ int			main(int argc, char **argv);
 int			init_render_data(t_data **data, char *file);
 /* render.c */
 // void		render;
+void		init_colors(t_map **m, int x, int y);
 void		init_cam(t_cam *cam, t_map *map, t_data *d);
-t_matrix	perspective(t_matrix m, t_data *data);
 void		render(t_data *data, int x, int y);
 void		find_max_values(t_data *data, t_matrix *max, int x, int y);
 /* draw_line.c */
-void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
 void		pixel_put(t_im *img, int x, int y, int color);
+void		draw_line(t_data *data, t_matrix p0, t_matrix p1);
+t_matrix	perspective(t_matrix m, t_data *data);
 /* color.c */
-void		lerp(t_color *c1, t_color *c2, t_color *r, float t);
+void		lerp(t_color c1, t_color c2, t_color *r, float t);
 void		hsl_rgb(t_color *c);
 void		int_rgb(t_color *rgb, char *str_color);
 void		get_hsl(t_color *c);
@@ -153,7 +153,7 @@ void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
 void		print_onscreen(t_data	*d);
-void		clear_image(t_im *img, t_map **m);
+void		clear_image(t_im *img);
 float		find_max(float v1, float v2, float v3);
 float		find_min(float v1, float v2, float v3);
 // void		check_map_data(t_map *map);
