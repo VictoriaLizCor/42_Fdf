@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 17:36:11 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:38:39 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 
 	cam->x = 80 * (M_PI / 180);
 	cam->y = 23 * (M_PI / 180);
-	cam->z = 20;
+	cam->z = 30;
 	if (map->max_val <= 50)
 		cam->scale = (float)WIN_W / (map->max_val * 2);
 	else if (map->max_val < 70)
