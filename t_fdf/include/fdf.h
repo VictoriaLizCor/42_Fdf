@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 21:36:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:39:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "libft.h"
-// # include "mlx.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdarg.h>
 # include <fcntl.h>
@@ -25,12 +25,12 @@
 # include <stdio.h>
 # include <limits.h>
 
-# ifdef __APPLE__
-#  include "mlx.h"
-# else
-#  include "mlx.h"
-#  include "mlx_int.h"
-# endif
+// # ifdef __APPLE__
+// #  include "mlx.h"
+// # else
+// #  include "mlx.h"
+// #  include "mlx_int.h"
+// # endif
 // # elif defined _WIN32 || defined _WIN64
 //     #include <GL\glut.h>
 // #ifdef __APPLE__
