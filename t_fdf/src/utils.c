@@ -6,13 +6,11 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 17:10:53 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:59:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "fdf.h"
-// #include "../include/fdf.h"
-#include <fdf.h>
+#include "fdf.h"
 
 float	find_max(float v1, float v2, float v3)
 {
@@ -90,7 +88,7 @@ void	clear_image(t_im *img)
 // 		while (col < map->x_max)
 // 		{
 // 			tmp = (row * map->x_max) + col;
-// 			printf("temp %d | (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, m[tmp].y, \
+// 			printf("temp %d | (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, m[tmp].y, 
 // 			m[tmp].x, m[tmp].z, m[tmp].rgb, &m[tmp]);
 // 			col++;
 // 		}
@@ -100,13 +98,13 @@ void	clear_image(t_im *img)
 // }
 	// while(row < map->y_max * map->x_max)
 	// {
-	// 	ft_printf("(%d, %d, %d, %d) \t %p\n", m[row].y, m[row].x, \
+	// 	ft_printf("(%d, %d, %d, %d) \t %p\n", m[row].y, m[row].x, 
 	// 		m[row].z, m[row].rgb, &m[row]);
 	// 	row++;
 	// }
 	// tmp = (row * map->x_max) + col;
-	// 		printf("temp %d |   (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, (m+tmp)->y, (m + tmp)->x, \
-	// 		(m+tmp)->z, (m+tmp)->rgb, *(m+tmp));
+	// 		printf("temp %d |   (%.2f, %.2f, %.2f, %d) \t %p\n", tmp, 
+	// (m+tmp)->y, (m + tmp)->x, (m+tmp)->z, (m+tmp)->rgb, *(m+tmp));
 	// 		col++;
 
 // void	check_after_string_data(char *str, int ret, int extra)

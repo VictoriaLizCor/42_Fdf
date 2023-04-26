@@ -6,11 +6,14 @@ SRCS =	src/fdf.c			\
 		src/draw_line.c		\
 		src/color.c			\
 		src/utils.c			\
+		src/hooks.c			\
 		src/check_error.c
 
 CFLAGS = -Wall -Wextra #-Werror
 CINCLUDES += -I include/
-HEADER = include/fdf.h
+HEADER +=	include/fdf.h
+HEADER +=	include/hook_key.h
+		
 
 OBJS_DIR = obj/
 OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
@@ -38,7 +41,7 @@ all: $(LIBFT) $(MLX) $(OBJS_DIR) $(NAME)
 
 $(NAME): $(HEADER) $(OBJS)
 	@echo $(GREEN)
-	cc -g $(CFLAGS) $(CINCLUDES) $^ -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	cc -g $(CFLAGS) $(CINCLUDES) $(OBJS) -o $@ $(LIBFT) $(MLX) $(LIBFT_FLAGS) $(MLX_FLAGS)
 	$(BANNER_FDF)
 
 

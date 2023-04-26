@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_keycode.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstadelw <fstadelw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 21:14:53 by fstadelw          #+#    #+#             */
-/*   Updated: 2018/11/28 21:50:37 by fstadelw         ###   ########.fr       */
+/*   Updated: 2023/04/26 13:40:11 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 */
 
 # define NOEVENTMASK 0L
-# define KEYPRESSMASK (1L<<0)
+# define KEYPRESSMASK (1 L<< 0)
 # define KEYRELEASEMASK (1L<<1)
-# define BUTTONPRESSMASK (1L<<2)
+# define BUTTONPRESSMASK (1L << 2)
 # define BUTTONRELEASEMASK (1L<<3)
 # define ENTERWINDOWMASK (1L<<4)
 # define LEAVEWINDOWMASK (1L<<5)

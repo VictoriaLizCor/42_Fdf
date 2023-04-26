@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 21:39:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:00:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include "hook_key.h"
 # include <math.h>
 # include <stdarg.h>
 # include <fcntl.h>
@@ -25,12 +26,12 @@
 # include <stdio.h>
 # include <limits.h>
 
-// # ifdef __APPLE__
-// #  include "mlx.h"
-// # else
-// #  include "mlx.h"
-// #  include "mlx_int.h"
-// # endif
+# ifdef __APPLE__
+#  include "mlx.h"
+# else
+#  include <X11/X.h>
+#  include <X11/keysym.h>
+# endif
 // # elif defined _WIN32 || defined _WIN64
 //     #include <GL\glut.h>
 // #ifdef __APPLE__
@@ -68,6 +69,7 @@ typedef struct s_mouse
 	int			x;
 	int			y;
 	int			lastx;
+	int			lasty;
 }				t_mouse;
 
 typedef struct s_im
@@ -150,12 +152,15 @@ void		lerp(t_color c1, t_color c2, t_color *r, float t);
 void		hsl_rgb(t_color *c);
 void		int_rgb(t_color *rgb, char *str_color);
 void		get_hsl(t_color *c);
+/* hooks.c*/
+int			free_data(t_data *d, int success);
+int			key_pressed(int key, t_data *d);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);
 /* utils.c */
 void		ft_free(void **array);
-void		print_onscreen(t_data	*d);
+void		print_onscreen(t_data *d);
 void		clear_image(t_im *img);
 float		find_max(float v1, float v2, float v3);
 float		find_min(float v1, float v2, float v3);

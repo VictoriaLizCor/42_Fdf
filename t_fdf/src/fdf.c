@@ -6,47 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 17:16:02 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:56:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
 //white = 16777215 = 0xffffff
-int	init_render_data(t_data **data, char *file)
-{
-	ft_printf("map: \t\t%p\n", (*data)->map);
-	ft_printf("*matrix: \t%p\n", (*data)->map->matrix);
-	(*data)->title = ft_strjoin("42 Fdf | ", file);
-	(*data)->mlx = mlx_init();
-	if (!((*data)->mlx))
-		return (-1);
-	ft_printf("mlx : \t\t%p\n", (*data)->mlx);
-	(*data)->win = mlx_new_window((*data)->mlx, WIN_W, \
-					WIN_H, (*data)->title);
-	(*data)->mouse = (t_mouse *)ft_calloc(sizeof(t_mouse), 1);
-	(*data)->img = (t_im *)ft_calloc(sizeof(t_im), 1);
-	(*data)->cam = (t_cam *)ft_calloc(sizeof(t_cam), 1);
-	ft_printf("window: \t%p\n", (*data)->win);
-	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
-	ft_printf("img: \t\t%p\n", (*data)->img);
-	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
-	if (!((*data)->mouse) || !((*data)->img) || !((*data)->win))
-		return (-1);
-	(*data)->img->img = mlx_new_image((*data)->mlx, WIN_W, WIN_H);
-	(*data)->img->addr = mlx_get_data_addr((*data)->img->img, \
-		&(*data)->img->bpp, &(*data)->img->line_length, &(*data)->img->endian);
-	(*data)->img->bpp /= 8;
-	ft_printf("window: \t%p\n", (*data)->win);
-	ft_printf("mouse: \t\t%p\n", (*data)->mouse);
-	ft_printf("img: \t\t%p\n", (*data)->img);
-	ft_printf("*img: \t\t%p\n\n", &(*data)->img);
-	init_cam((*data)->cam, (*data)->map, *data);
-	init_colors(&(*data)->map, 0, 0);
-	if (!((*data)->win))
-		return (-1);
-	return (0);
-}
 
 static int	read_map(t_map **map, int fd)
 {
@@ -141,7 +107,7 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
-	printf("data: \t%p\n", data);
+	printf("data: \t%p\n", &data);
 	if (argc != 2)
 		ft_error("Invalid command\nValid input usage: \n ./fdf <filename.fdf>");
 	if (!(ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1]))))
@@ -149,22 +115,22 @@ int	main(int argc, char **argv)
 	if ((read_map(&data->map, open(argv[1], O_RDONLY)) == -1) || \
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
-	ft_printf("read_matrix : %p\n", data->map->matrix);
-	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_max, \
-											data->map->x_max);
 	if (init_render_data(&data, argv[1]) == -1)
-		ft_error("MLX initialization failed.");
+		free_data(data, 0);
 	render(data, 0, 0);
+	mlx_hook(data->win, 2, 1L << 0, key_pressed, data);
+	mlx_hook(data->win, 17, 0, free_data, data);
 	mlx_loop(data->mlx);
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	return (0);
-	// exit (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
+
+// exit (EXIT_SUCCESS);
+// 	ft_printf("read_matrix : %p\n", data->map->matrix);
+// 	ft_printf("\n\nsize:[ %d, %d ]\n\n", data->map->y_max,
+// 											data->map->x_max)
 	// free(*(data->map->matrix)); // free((void *)(*(data.map->matrix)));
 	// free(data->map);
 	// free(data->title);
-
 	// free((void *)(*(data.map->matrix)));
 	// free((*(data.map->matrix)));
 		// printf("\n%p | %p\n\n", data.map, (void *)(*(data.map->matrix)));
