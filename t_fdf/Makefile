@@ -72,7 +72,7 @@ $(LIBFT):
 # export DISPLAY=$(shell echo $(ST))
 #  $(DISPLAY)
 #export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-
+#  xmodmap -pke | grep Caps
 # install:
 # 	$(shell sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev)
 
