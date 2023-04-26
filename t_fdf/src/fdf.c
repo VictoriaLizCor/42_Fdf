@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 12:56:45 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:46:10 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
-	printf("data: \t%p\n", &data);
 	if (argc != 2)
 		ft_error("Invalid command\nValid input usage: \n ./fdf <filename.fdf>");
 	if (!(ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1]))))

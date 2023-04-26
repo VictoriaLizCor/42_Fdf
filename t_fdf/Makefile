@@ -12,7 +12,6 @@ SRCS =	src/fdf.c			\
 CFLAGS = -Wall -Wextra #-Werror
 CINCLUDES += -I include/
 HEADER +=	include/fdf.h
-HEADER +=	include/hook_key.h
 		
 
 OBJS_DIR = obj/
@@ -31,6 +30,7 @@ endif
 ifeq ($(shell uname), Darwin)
 	MLX_DIR = lib/minilibx_macos/
 	MLX_FLAGS = -L.. -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	HEADER +=	include/hook_key.h
 endif
 # cc -I /usr/include/ minilib_main.c -L.. -lmlx -L ../minilibx_linux/ -lXext -lX11 -lm -lbsd
 MLX = $(MLX_DIR)libmlx.a
@@ -65,16 +65,16 @@ $(LIBFT):
 	@echo $(BLUE)
 	@make -C $(LIBFT_DIR)
 
-display :
-	export DISPLAY=$(echo $(cat /etc/resolv.conf | grep nameserver | awk '{print $$NF}'):0.0)
+# display :
+# $(shell export $(shell DISPLAY=$(shell cat /etc/resolv.conf | grep nameserver | awk '{print $$NF}'):0.0))
 # $(eval ST=$(shell cat /etc/resolv.conf | grep nameserver | awk '{print $$NF}'):0.0)
 # @echo $(ST)
 # export DISPLAY=$(shell echo $(ST))
 #  $(DISPLAY)
 #export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 
-install:
-	$(shell sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev)
+# install:
+# 	$(shell sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev)
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 

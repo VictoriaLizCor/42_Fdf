@@ -42,7 +42,7 @@ OBJS			:= $(OBJS:%.c=%.o)
 SRCS			:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CC				= cc
-CFLAGS          = -Wall -Werror -Wextra
+CFLAGS          = -Wall -Wextra 
 HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR)
 
 all						: ${NAME}

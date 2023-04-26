@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_bmp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeskim <jaeskim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:37:17 by jaeskim           #+#    #+#             */
-/*   Updated: 2021/03/04 01:36:52 by jaeskim          ###   ########.fr       */
+/*   Updated: 2023/04/26 17:41:32 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			save_bmp(t_cub3d *g)
 {
 	int		fd;
 
-	if ((fd = open("./image.bmp", O_CREAT | O_RDWR)) == -1)
+	if ((fd = open("./image.bmp", O_RDONLY)) == -1)
 		exit_cub3d_msg(g, "can't (create | open) image.bmp file");
 	update(g);
 	render(g);

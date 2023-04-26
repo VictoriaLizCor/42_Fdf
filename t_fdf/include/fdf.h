@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 14:00:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:33:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,13 @@
 # include <stdio.h>
 # include <limits.h>
 
-# ifdef __APPLE__
-#  include "mlx.h"
+# ifdef not__APPLE__
+# 
 # else
 #  include <X11/X.h>
 #  include <X11/keysym.h>
 # endif
-// # elif defined _WIN32 || defined _WIN64
-//     #include <GL\glut.h>
-// #ifdef __APPLE__
-//     DoSomething();
-// #elif _WIN32
-//     DoSomethingElse();
-// #else
-//     GenerateErrorOrIgnore
+
 # ifndef WIN_W
 #  define WIN_W 1080
 # endif
@@ -60,7 +53,7 @@ typedef struct s_cam
 	float		y;
 	float		z;
 	float		scale;
-	double		**matrix;
+	double		*matrix;
 }					t_cam;
 
 typedef struct s_mouse
