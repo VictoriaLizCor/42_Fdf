@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_long_atoi.c                                     :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:06:44 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/23 16:17:31 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:18:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static long	max_values(long int *num, int *sign, char c)
 	return ((*num * *sign));
 }
 
-long int	ft_long_atoi(const char *s)
+long int	ft_atol(const char *s)
 {
 	long int	num;
 	int			sign;

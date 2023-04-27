@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 14:50:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:47:57 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 	cam->x = 80 * (M_PI / 180);
 	cam->y = 24 * (M_PI / 180);
 	cam->z = 1;
+	printf("max_val = %.2f\n", map->max_val);
 	if (map->max_val <= 50)
 		cam->scale = (float)WIN_W / (map->max_val * 2);
 	else if (map->max_val < 70)
@@ -138,11 +139,14 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 	else if (map->max_val < 250)
 		cam->scale = 5 - (float)map->max_val * 0.01;
 	else
-		cam->scale = 2;
+		cam->scale = 1;
 	t1 = perspective(d->map->matrix[0], d);
 	find_max_values(d, &t2, 0, 0);
 	cam->offsetx = ((float)WIN_W * 0.5) - ((t2.x - t1.x) / 2);
 	cam->offsety = ((float)WIN_H * 0.4) - ((t2.y - t1.y) / 2);
+	printf("wid_height \t\t\t_%.2lf | %.2lf\n", (float)WIN_W * 0.5, WIN_H * 0.4);
+	printf("t1t2 \t\t\t\t\t_%.2lf | %.2lf\n",  ((t2.x - t1.x) / 2),  ((t2.x - t1.x)));
+	printf("init_offset = %.2lf | %.2lf\n", (double)cam->offsetx, (double)cam->offsety);
 }
 
 int	init_render_data(t_data **data, char *file)

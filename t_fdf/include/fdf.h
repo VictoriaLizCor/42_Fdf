@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 12:49:18 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:55:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ typedef struct color{
 }				t_color;
 
 typedef struct s_matrix{
-	float		x;
-	float		y;
-	float		z;
+	double		x;
+	double		y;
+	double		z;
 	float		p;
 	t_color		rgb;
 }				t_matrix;
@@ -103,9 +103,9 @@ typedef struct s_map
 {
 	int			x_max;
 	int			y_max;
-	int			z_min;
+	double			z_min;
 	int			z_max;
-	int			max_val;
+	float		max_val;
 	int			color_change;
 	t_color		c1;
 	t_color		c2;

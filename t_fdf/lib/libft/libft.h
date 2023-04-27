@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:32:51 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/14 11:58:47 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:19:29 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int			ft_atoi(const char *s);
 ** The atoi() function converts the initial portion of the 
 ** string pointed to by str to long int representation.
 */
-long int	ft_long_atoi(const char *s);
+long int	ft_atol(const char *s);
 /*
 ** DESCRIPTION
 ** The calloc() function contiguously allocates enough space 

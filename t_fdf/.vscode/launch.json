@@ -7,7 +7,7 @@
             "name": "Debug fdf",
             "program": "${workspaceFolder}/fdf",
             "args": [
-                "maps/test/2_row.fdf"
+                "maps/test/pyramide.fdf"
             ],
             "cwd": "${workspaceFolder}"
         },

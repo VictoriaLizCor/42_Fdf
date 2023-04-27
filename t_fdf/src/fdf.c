@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 12:49:43 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:50:37 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 	{
 		row[x].x = x + 1;
 		row[x].y = y;
-		row[x].z = (float)ft_atoi(row_data[x]);
+		row[x].z = (double)(ft_atol(row_data[x]));
+		printf("z_str == %f\n", (double)ft_atol(row_data[x]));
+		printf("z_matrix == %.2f\n", row[x].z);
 		if (row[x].z < (*m)->z_min)
 			(*m)->z_min = (int)row[x].z;
 		if (row[x].z > (*m)->z_max)
@@ -65,6 +67,7 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 		}
 		x++;
 	}
+	printf("filling --> \t\t x:  %.2f | y:  %.2f | z:  %.2f\n", (float)(*m)->x_max, (float)(*m)->y_max, (float)(*m)->z_max);
 	(*m)->max_val = find_max((float)(*m)->x_max, \
 	(float)(*m)->y_max, (float)(*m)->z_max);
 }

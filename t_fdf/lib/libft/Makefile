@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/27 13:27:47 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/04/27 15:20:28 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ NAME = libft.a
 #compiling
 FLAGS := -Wall -Wextra -Werror
 #source files
-SRC_LIBFT :=	ft_long_atoi.c				\
-				ft_atoi.c					\
+SRC_LIBFT :=	ft_atoi.c					\
+				ft_atol.c					\
 				ft_bzero.c					\
 				ft_calloc.c					\
 				ft_isalnum.c				\
