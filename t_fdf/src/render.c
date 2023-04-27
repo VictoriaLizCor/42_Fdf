@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 12:58:14 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:50:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,15 @@ void	init_colors(t_map **m, int x, int y)
 	}
 }
 
+	// cam->x = 80 * (M_PI / 180);
+	// cam->y = 23 * (M_PI / 180);
 void	init_cam(t_cam *cam, t_map *map, t_data *d)
 {
 	t_matrix	t1;
 	t_matrix	t2;
 
 	cam->x = 80 * (M_PI / 180);
-	cam->y = 23 * (M_PI / 180);
+	cam->y = 24 * (M_PI / 180);
 	cam->z = 1;
 	if (map->max_val <= 50)
 		cam->scale = (float)WIN_W / (map->max_val * 2);
@@ -136,7 +138,7 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 	else if (map->max_val < 250)
 		cam->scale = 5 - (float)map->max_val * 0.01;
 	else
-		cam->scale = 1.5;
+		cam->scale = 2;
 	t1 = perspective(d->map->matrix[0], d);
 	find_max_values(d, &t2, 0, 0);
 	cam->offsetx = ((float)WIN_W * 0.5) - ((t2.x - t1.x) / 2);
@@ -168,7 +170,9 @@ int	init_render_data(t_data **data, char *file)
 }
 
 	// ft_printf("map: \t\t%p\n", (*data)->map);
-	// ft_printf("*matrix: \t%p\n", (*data)->map->matrix);
+	// ft_printf("*map: \t\t%p\n", &(*data)->map);
+	// ft_printf("matrix: \t%p\n", (*data)->map->matrix);
+	// ft_printf("*matrix: \t%p\n", &(*data)->map->matrix);
 	// ft_printf("mlx : \t\t%p\n", (*data)->mlx);
 	// ft_printf("title : \t%p\n", (*data)->title);
 	// ft_printf("window: \t%p\n", (*data)->win);
@@ -176,3 +180,4 @@ int	init_render_data(t_data **data, char *file)
 	// ft_printf("mouse: \t\t%p\n", (*data)->mouse);
 	// ft_printf("img: \t\t%p\n", (*data)->img);
 	// ft_printf("*img: \t\t%p\n\n", &(*data)->img);
+	// ft_printf("addr5: \t\t%p\n", (*data)->img->addr);

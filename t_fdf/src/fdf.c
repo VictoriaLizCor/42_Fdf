@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 17:46:10 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:49:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,15 @@ int	main(int argc, char **argv)
 		(get_map_data(&data->map, open(argv[1], O_RDONLY), 0) == -1))
 		ft_error(strerror(errno));
 	if (init_render_data(&data, argv[1]) == -1)
-		free_data(data, 0);
+		clean_data(data, 0);
 	render(data, 0, 0);
-	mlx_hook(data->win, 2, 1L << 0, key_pressed, data);
-	mlx_hook(data->win, 17, 0, free_data, data);
+	mlx_key_hook(data->win, key_pressed, data);
+	mlx_hook(data->win, 17, 0, clean_data, data);
+	mlx_hook(data->win, 4, 0, mouse_pressed, data);
+	mlx_hook(data->win, 5, 0, mouse_released, data);
+	// mlx_hook(data->win, 6, 0, mouse_hook, data);
 	mlx_loop(data->mlx);
-	exit(EXIT_SUCCESS);
+	return (0);
 }
 
 // exit (EXIT_SUCCESS);

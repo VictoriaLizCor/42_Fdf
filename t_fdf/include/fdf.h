@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 17:33:44 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:49:18 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 # include <stdio.h>
 # include <limits.h>
 
-# ifdef not__APPLE__
-# 
-# else
-#  include <X11/X.h>
-#  include <X11/keysym.h>
-# endif
+// # ifdef not__APPLE__
+// # 
+// # else
+// #  include <X11/X.h>
+// #  include <X11/keysym.h>
+// # endif
 
 # ifndef WIN_W
 #  define WIN_W 1080
@@ -146,8 +146,10 @@ void		hsl_rgb(t_color *c);
 void		int_rgb(t_color *rgb, char *str_color);
 void		get_hsl(t_color *c);
 /* hooks.c*/
-int			free_data(t_data *d, int success);
+int			clean_data(t_data *d, int success);
 int			key_pressed(int key, t_data *d);
+int			mouse_pressed(int keysym, t_data *d);
+int			mouse_released(int keysym, t_data *d);
 /* check_error.c */
 void		ft_error(char *msg);
 void		get_map_size(char **matrix, int *cols);

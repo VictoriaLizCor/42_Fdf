@@ -12,7 +12,8 @@ SRCS =	src/fdf.c			\
 CFLAGS = -Wall -Wextra #-Werror
 CINCLUDES += -I include/
 HEADER +=	include/fdf.h
-		
+HEADER +=	include/hook_key.h
+HEADER +=	include/hook_key.h
 
 OBJS_DIR = obj/
 OBJS := $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
@@ -30,7 +31,6 @@ endif
 ifeq ($(shell uname), Darwin)
 	MLX_DIR = lib/minilibx_macos/
 	MLX_FLAGS = -L.. -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-	HEADER +=	include/hook_key.h
 endif
 # cc -I /usr/include/ minilib_main.c -L.. -lmlx -L ../minilibx_linux/ -lXext -lX11 -lm -lbsd
 MLX = $(MLX_DIR)libmlx.a

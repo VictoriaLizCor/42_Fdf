@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 11:41:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 17:04:55 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:42:00 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 */
 
 # ifdef __APPLE__
-#  define UP_KEY 126
-#  define DOWN_KEY 125
-#  define RIGHT_KEY 124
-#  define LEFT_KEY 123
-
 /*
 ** Special keys
 ** CL_KEY is the caps lock key
@@ -83,9 +78,9 @@
 #  define MAIN_PAD_7 26
 #  define MAIN_PAD_8 28
 #  define MAIN_PAD_9 25
-#  define MOUSE_LEFT_BUTTON 1
-#  define MOUSE_RIGHT_BUTTON 2
-#  define MOUSE_THIRD_BUTTON 3
+#  define MOUSE_LEFT_KEY 1
+#  define MOUSE_RIGHT_KEY 2
+#  define MOUSE_THIRD_KEY 3
 #  define MOUSE_SCROLL_UP 4
 #  define MOUSE_SCROLL_DOWN 5
 #  define MOUSE_SCROLL_LEFT 6
@@ -114,11 +109,9 @@
 #  define KEY_A		97
 #  define KEY_S		115
 #  define KEY_D		100
-#  define KEY_UP	65362
-#  define KEY_DOWN	65364
-#  define KEY_LEFT	65361
-#  define KEY_RIGHT	65363
+#  define ARROW_UP	65362
+#  define ARROW_DOWN	65364
+#  define ARROW_LEFT	65361
+#  define ARROW_RIGHT	65363
 # endif
-
-
 #endif

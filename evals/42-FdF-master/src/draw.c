@@ -102,6 +102,6 @@ void		render(t_mlx *mlx)
 		}
 		x++;
 	}
-	printf("%0.2f | %0.2f | %d\n", mlx->cam->x, mlx->cam->y, mlx->cam->scale);
+	printf("%0.2f | %0.2f | %d\n", mlx->cam->x * 180/3.1416, mlx->cam->y * 180/3.1416, mlx->cam->scale);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
 }

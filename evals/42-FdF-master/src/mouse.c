@@ -12,12 +12,18 @@
 
 #include "fdf.h"
 
+static int	print_key(int key)
+{
+	printf("%d\n", key);
+	return (key);
+}
+
 int		hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	if (y < 0)
 		return (0);
-	mlx->mouse->isdown |= 1 << button;
+	mlx->mouse->isdown |= 1 << print_key(button);
 	return (0);
 }
 
@@ -25,7 +31,7 @@ int		hook_mouseup(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
-	mlx->mouse->isdown &= ~(1 << button);
+	mlx->mouse->isdown &= ~(1 << print_key(button));
 	return (0);
 }
 
