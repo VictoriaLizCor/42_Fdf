@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:53:05 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 17:38:56 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:55:19 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_matrix	perspective(t_matrix m, t_data *data)
 	if (map->y_max > 1)
 		m.y -= ((m.y - 1.0) / (map->y_max - 1.0)) / map->y_max;
 	t_z = m.z;
-	printf("z_min = %.2lf | z_max = %.2lf\n", (double)map->z_min, (double)(map->z_max));
+	printf("z_min = %.2f | z_max = %.2f\n", (double)map->z_min, (double)(map->z_max));
 	if (map->z_max - map->z_min == 0)
 		t_z = 0;
 	else
@@ -105,6 +105,6 @@ t_matrix	perspective(t_matrix m, t_data *data)
 	printf("c_%.2lf | %.2lf\n", (double)cam->offsetx, (double)cam->offsety);
 	m.x += cam->offsetx;
 	m.y += cam->offsety;
-	printf("**\t\t\t\t\t\t\t\t\t\t%.2lf | %.2lf\n", (double)m.x, (double)m.y);
+	printf("*offset*\t\t\t\t\t\t\t\t\t\t%.2lf | %.2lf\n", (double)m.x, (double)m.y);
 	return (m);
 }

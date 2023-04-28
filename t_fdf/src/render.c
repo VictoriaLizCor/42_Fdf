@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:54:38 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 17:47:57 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:57:39 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	init_colors(t_map **m, int x, int y)
 					v[y * (*m)->x_max + x].p = 0;
 				else
 					v[y * (*m)->x_max + x].p = ((v[y * (*m)->x_max + x].z - \
-					(float)(*m)->z_min) / (float)((*m)->z_max - (*m)->z_min));
+					(*m)->z_min) / ((*m)->z_max - (*m)->z_min));
 				lerp((*m)->c1, (*m)->c2, &v[y * (*m)->x_max + x].rgb, v[y * \
 				(*m)->x_max + x].p);
 				x++;
@@ -131,7 +131,6 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 	cam->x = 80 * (M_PI / 180);
 	cam->y = 24 * (M_PI / 180);
 	cam->z = 1;
-	printf("max_val = %.2f\n", map->max_val);
 	if (map->max_val <= 50)
 		cam->scale = (float)WIN_W / (map->max_val * 2);
 	else if (map->max_val < 70)
@@ -140,6 +139,7 @@ void	init_cam(t_cam *cam, t_map *map, t_data *d)
 		cam->scale = 5 - (float)map->max_val * 0.01;
 	else
 		cam->scale = 1;
+	printf("max_val = %.2f\n", map->max_val);
 	t1 = perspective(d->map->matrix[0], d);
 	find_max_values(d, &t2, 0, 0);
 	cam->offsetx = ((float)WIN_W * 0.5) - ((t2.x - t1.x) / 2);

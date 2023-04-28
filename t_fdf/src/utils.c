@@ -6,15 +6,15 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:09:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/26 12:59:01 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:14:36 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	find_max(float v1, float v2, float v3)
+double	find_max(double v1, double v2, double v3)
 {
-	float	max;
+	double	max;
 
 	if (v1 >= v2 && v1 >= v3)
 		max = v1;
@@ -25,9 +25,9 @@ float	find_max(float v1, float v2, float v3)
 	return (max);
 }
 
-float	find_min(float v1, float v2, float v3)
+double	find_min(double v1, double v2, double v3)
 {
-	float	min;
+	double	min;
 
 	if (v1 <= v2 && v1 <= v3)
 		min = v1;

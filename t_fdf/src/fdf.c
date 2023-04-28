@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:23:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 17:50:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:50:00 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,21 @@ static void	fill_matrix(t_matrix *row, t_map **m, int y, char **row_data)
 		printf("z_str == %f\n", (double)ft_atol(row_data[x]));
 		printf("z_matrix == %.2f\n", row[x].z);
 		if (row[x].z < (*m)->z_min)
-			(*m)->z_min = (int)row[x].z;
+			(*m)->z_min = row[x].z;
 		if (row[x].z > (*m)->z_max)
-			(*m)->z_max = (int)row[x].z;
+			(*m)->z_max = row[x].z;
 		row[x].rgb.rgb = (int)0xFFFFFF;
 		if (ft_strchr(row_data[x], ','))
 		{
 			int_rgb(&row[x].rgb, ft_strchr(row_data[x], ',') + 3);
 			(*m)->color_change = 1;
 		}
+		printf("z --> \t\t z:  %.2f |\n", row[x].z);
+		printf("filling --> \t\t x:  %d | y:  %d | z_min:  %.2f| z_max:  %.2f\n", (*m)->x_max, (*m)->y_max, (*m)->z_min, (*m)->z_max);
 		x++;
 	}
-	printf("filling --> \t\t x:  %.2f | y:  %.2f | z:  %.2f\n", (float)(*m)->x_max, (float)(*m)->y_max, (float)(*m)->z_max);
-	(*m)->max_val = find_max((float)(*m)->x_max, \
-	(float)(*m)->y_max, (float)(*m)->z_max);
+	(*m)->max_val = find_max((double)(*m)->x_max, \
+	(double)(*m)->y_max, (*m)->z_max);
 }
 	// ft_printf("map size: [ %d , %d ] \t\t %p\n", y, (*map)->x_max, row);
 		// ft_printf("%d | %d \t", x, row[x].z);

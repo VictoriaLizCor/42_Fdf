@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:32:33 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 17:55:01 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:35:18 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,17 @@ typedef struct s_matrix{
 typedef struct s_line
 {
 	t_matrix	p0;
-	float		dx;
-	float		dy;
+	double		dx;
+	double		dy;
 }				t_line;
 
 typedef struct s_map
 {
 	int			x_max;
 	int			y_max;
-	double			z_min;
-	int			z_max;
-	float		max_val;
+	double		z_min;
+	double		z_max;
+	double		max_val;
 	int			color_change;
 	t_color		c1;
 	t_color		c2;
@@ -157,8 +157,8 @@ void		get_map_size(char **matrix, int *cols);
 void		ft_free(void **array);
 void		print_onscreen(t_data *d);
 void		clear_image(t_im *img);
-float		find_max(float v1, float v2, float v3);
-float		find_min(float v1, float v2, float v3);
+double		find_max(double v1, double v2, double v3);
+double		find_min(double v1, double v2, double v3);
 // void		check_map_data(t_map *map);
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		check_after_string_data(char *str, int ret, int extra);

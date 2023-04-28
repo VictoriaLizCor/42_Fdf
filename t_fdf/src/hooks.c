@@ -6,16 +6,17 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 11:12:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/27 15:01:04 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:15:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-static int	print_key(int key)
+static int	print_key(int keysym)
 {
-	ft_printf("%d\n", key);
-	return (key);
+	if (keysym == ESC_KEY)
+		ft_printf("Closing window[key :%d]\n", keysym);
+	return (keysym);
 }
 
 int	key_pressed(int keysym, t_data *d)

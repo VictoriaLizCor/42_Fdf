@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 15:37:02 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/04/24 16:59:55 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:04:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,25 @@ void	lerp(t_color c1, t_color c2, t_color *r, float t)
 void	get_hsl(t_color *c)
 {
 	float	hue;
-	float	min;
-	float	max;
+	double	min;
+	double	max;
 
-	min = find_min((float)c->r / 255, (float)c->g / 255, (float)c->b / 255);
-	max = find_max((float)c->r / 255, (float)c->g / 255, (float)c->b / 255);
+	min = find_min((double)c->r / 255, (double)c->g / 255, (double)c->b / 255);
+	max = find_max((double)c->r / 255, (double)c->g / 255, (double)c->b / 255);
 	if (min == max)
 		return ;
 	hue = 0;
-	c->l = (min + max) / 2;
+	c->l = (float)((min + max) / 2);
 	if (c->l <= 50)
-		c->s = (max - min) / (min + max);
+		c->s = (float)((max - min) / (min + max));
 	else
-		c->s = (max - min) / (2 - max - min);
+		c->s = (float)((max - min) / (2 - max - min));
 	if (max == (float)c->r / 255)
 		hue = (c->g - c->b) / (max - min);
 	else if (max == (float)c->g / 255)
-		hue = 2 + ((float)c->b / 255 - (float)c->r / 255) / (max - min);
+		hue = 2 + ((float)c->b / 255 - (float)c->r / 255) / (float)(max - min);
 	else
-		hue = 4 + ((float)c->r / 255 - (float)c->g / 255) / (max - min);
+		hue = 4 + ((float)c->r / 255 - (float)c->g / 255) / (float)(max - min);
 	hue = hue * 60;
 	if (hue < 0)
 		hue = hue + 360;
