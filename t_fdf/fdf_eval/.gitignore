@@ -1,10 +1,11 @@
 # Object files
 *.out
 *.o
-# Libraries
 *.a
+*.json
 # Ignored folders
-#test*/
+test*/
 obj*/
-# executable
+.vscode*/
+# Executable
 fdf
